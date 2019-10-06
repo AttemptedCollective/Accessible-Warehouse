@@ -1,0 +1,23 @@
+{
+  "name": "accessible-warehouse",
+  "version": "1.0.0",
+  "description": "Creating a responsive accessible web application for stock management in warehouses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AttemptedCollective/Accessible-Warehouse.git"
+  },
+  "author": "Tyler Davis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AttemptedCollective/Accessible-Warehouse/issues"
+  },
+  "homepage": "https://github.com/AttemptedCollective/Accessible-Warehouse#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^1.7.0"
+  }
+}
