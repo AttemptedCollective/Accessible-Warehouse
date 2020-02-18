@@ -20,10 +20,8 @@ io.on('connection', function(socket){
   });
 });
 
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-  console.log(`Server started, Listening on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 8080;
+server.listen();
 
 // API functions
 app.post('/api/addStockType', addStockType);
