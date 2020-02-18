@@ -1,0 +1,263 @@
+
+/*------------------------------------------------*\
+    Variables
+\*------------------------------------------------*/
+
+:root {
+    --main-bg-color: #FEFDFF;
+    --main-nav-color: #393E41;
+  }
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Calibri, sans-serif;
+}
+
+/*------------------------------------------------*\
+    Globa;
+\*------------------------------------------------*/
+
+.hidden {
+    display: none;
+}
+
+/*------------------------------------------------*\
+    Body
+\*------------------------------------------------*/
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-areas:
+        "userarea displayarea ."
+        "sidebar displayarea ."
+        "copyright displayarea .";
+    grid-template-rows: 7.5% 85% 7.5%;
+    grid-template-columns: 200px auto 0;
+    grid-column-gap: 2vw;
+}
+
+/*------------------------------------------------*\
+    User Area - Displays who is logged in
+\*------------------------------------------------*/
+
+userarea {
+    background-color: #DF2935;
+    border-right-style: solid;
+    border-right-color: rgb(175, 35, 44);
+    border-right-width: 4px;
+    width: 100%;
+    height: 102%;
+    display: flex;
+    justify-content: center;
+    grid-area: userarea;
+}
+
+userarea > div {
+    width: 100%;
+    height: 100%;
+}
+
+userarea > div > .large.user.circle.icon {
+    color: white;
+    padding-top: 25px;
+    width: 100%;
+    margin: auto;
+}
+
+.user.circle.icon > username {
+    font-family: Calibri, sans-serif;
+    padding-left: 0.5em;
+    color: white;
+    font-size: 0.9em;
+}
+
+
+
+/*------------------------------------------------*\
+    Sidebar Area - Navigation
+\*------------------------------------------------*/
+
+sidebar {
+    background: var(--main-nav-color);
+    overflow-x: hidden;
+    border-right-style: solid;
+    border-right-color: rgb(49, 53, 56);
+    border-right-width: 4px;
+    grid-area: sidebar;
+}
+
+sidebar a {
+    padding: 2vh 2vh 2vh 2vh;
+    display: block;
+    color: white;
+    text-decoration: none
+}
+
+.currentPage {
+    background-color: rgb(37, 40, 43);
+}
+
+.subOption {
+    padding: 1vh 3vh;
+    font-size: 0.75em;
+}
+
+.subOption:hover {
+    padding: 1vh 3vh;
+    font-size: 0.75em;
+    display: block;
+    background-color: rgb(42, 45, 48);
+    color: white;
+    text-decoration :none
+}
+
+sidebar a:hover {
+    padding: 2vh 2vh 2vh 2vh;
+    display: block;
+    background-color: rgb(42, 45, 48);
+    color: white;
+    text-decoration :none
+}
+
+/*------------------------------------------------*\
+    Copyright Area
+\*------------------------------------------------*/
+
+copyright {
+    background: var(--main-nav-color);
+    overflow-x: hidden;
+    border-right-style: solid;
+    border-right-color: rgb(49, 53, 56);
+    border-right-width: 4px;
+    display: table;
+    grid-area: copyright;
+    height: 100%;
+}
+
+copyright p {
+    font-size: 0.5em;
+    color: white;
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 2vh;
+}
+
+/*------------------------------------------------*\
+    Display Area -  Shows current widgits/Tools
+\*------------------------------------------------*/
+
+holder {
+    grid-area: displayarea;
+    padding: 2.5%;
+}
+
+displayArea {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-gap: 1.5vw;
+}
+
+/*------------------------------------------------*\
+    Overlay
+\*------------------------------------------------*/
+
+.hide {
+    display: none;
+    grid-area: hide;
+ }
+
+ .show {
+    display: grid;
+    grid-area: displayarea;
+ }
+
+/*------------------------------------------------*\
+    widgit Basic Design
+\*------------------------------------------------*/
+
+displayArea > div {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 10% 70% 15%;
+  grid-row-gap: 2.5%;
+  padding: 1vh;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px grey;
+}
+
+.topOptionsContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.topOptionsContainer > .areaSelect.ui.dropdown.selection, .topOptionsContainer > .storeSelect.ui.dropdown.selection {
+    width: 20%;
+    margin: auto auto auto 0;
+}
+.areaSelect.ui.dropdown.selection.hidden, .storeSelect.ui.dropdown.selection.hidden {
+    display: none;
+}
+
+.topOptionsContainer > .ui.button {
+    margin: auto 0 auto auto;
+}
+
+.topOptionsContainer > .reportSelect.ui.dropdown.selection {
+    width: 65%;
+    margin: auto;
+}
+
+.canvasContainer {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  margin: auto;
+}
+
+.optionsContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.optionsContainer > .ui.selection.dropdown.dateOption {
+    min-width: 14%;
+    width: 14%;
+    margin: auto;
+}
+
+.optionsContainer > input {
+    min-width: 125px;
+    width: 20%;
+    margin: auto;
+}
+
+.optionsContainer > .stockSelect {
+    width: 60%;
+    margin: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/*------------------------------------------------*\
+    Table Area Design
+\*------------------------------------------------*/
+
+.tableArea {
+  margin: auto 1vw;
+}

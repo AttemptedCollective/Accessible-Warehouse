@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- link to the main.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <title>Warehouse Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+</head>
+
+<body>
+    <userarea>
+        <div><i class="large user circle icon"><username>Warehouse View</username></i></div>
+    </userarea>
+    <sidebar>
+        <nav>
+            <a id='reporting' href="reporting.html">Reporting Dashboard</a>
+            <a class='currentPage' id='warehouse' href="warehouse.html">Warehouse Dashboard</a>
+            <a class='subOption' id='createNewOutboundDelivery' href="#">Create New Outbound Delivery</a>
+            <a class='subOption' id='createNewStockIn' href="#">Report Incoming Stock</a>
+            <a id='configuration' href="configuration.html">Configuration</a>
+        </nav>
+    </sidebar>
+    <copyright><p>&copy; Copyright 2019, Tyler Davis</p></copyright>
+    <holder><displayArea>
+    </displayArea></holder>
+</body>
+
+<div class="ui right floated pagination menu footerMenu">
+    <a class="icon item">
+      <i class="left chevron icon"></i>
+    </a>
+    <a class="icon item">
+      <i class="right chevron icon"></i>
+    </a>
+</div>
+
+<!-- <script src="../node_modules/socket.io-client/dist/socket.io.js"></script> -->
+<script src="assets/js/warehouseWidgitClass.js"></script>
+<script src="assets/js/warehouse.js"></script>

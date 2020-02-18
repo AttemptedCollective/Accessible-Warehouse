@@ -1,0 +1,8 @@
+{
+    "mysql": {
+      "host": "localhost",
+      "user": "webuser",
+      "password": "sW93^#KeuDJa",
+      "database": "warehouse"
+    }
+  }

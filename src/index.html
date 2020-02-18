@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 
 <head>
-    <!-- retrieve the Open Sans font from the google fonts library -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <!-- link to the main.css -->
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/login.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/transition.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>Login</title>
 </head>
 
 <body>
-  
+    <titleArea><titleText>Warehouse Management Tool</titleText></titleArea>
+    <loginArea>
+        <loginTitle><text>User Login</text></loginTitle>
+        <loginContent>
+            <div><form action="reporting.html">
+                <input placeholder="Username" type="text" required="">
+                <input placeholder="Password" type="password" required="">
+                <button type="submit">Sign In</button>
+            </form></div>
+        </loginContent>
+    </loginArea>
+    <copyright><copyrightText>&copy; Copyright 2019, Tyler Davis</copyrightText></copyright>
 </body>
 
-<script src="scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="assets/js/login.js"></script>

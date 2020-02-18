@@ -48,6 +48,11 @@ async function mysqlInsert(queryStr,queryVars){ //Runs MySQL Insert Queries and 
   }
 }
 
+
+/*------------------------------------------------*\
+    Adding to the database
+\*------------------------------------------------*/
+
 async function addUser(name, accessLevel, driverType){
   const Query = await mysqlInsert(
     'INSERT INTO User (name, accessLevel, driverType) VALUES (?,?,?)',
@@ -66,8 +71,84 @@ async function addStockType(name, averageWeight){
     [name, averageWeight]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mAAdded a New Stock Type (%s)\x1b[0m', name);
+    console.log('\x1b[33mAdded a New Stock Type (%s)\x1b[0m', name);
     return true; //return true so that client can know Stock Type was added successfully
   }
   else {return false;} //return false so client can know Stock Type wasn't added
+}
+
+async function addNewDelivery(fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate){
+  const Query = await mysqlInsert(
+    'INSERT INTO Deliveries (fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate) VALUES (?,?,?,?,?,?)',
+    [fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate]
+  );
+  if (Query){ //If Query was successfull (if not then error has already been printed to console)
+    console.log('\x1b[33mAdded a new Delivery');
+    return true; //return true so that client can know Stock Type was added successfully
+  }
+  else {return false;} //return false so client can know Stock Type wasn't added
+}
+
+/*------------------------------------------------*\
+    Getting data from the database
+\*------------------------------------------------*/
+
+async function getUpcomingDeliveries(){
+  return await mysqlSelect('SELECT deliveryDueDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NULL ORDER BY deliveryDueDate ASC LIMIT 10;');
+}
+
+async function getDeliveryReceipts(startIndex, numberOfRecords){
+  return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NOT NULL ORDER BY deliveryDueDate DESC LIMIT ?, ?',
+  [startIndex, numberOfRecords]);
+}
+
+async function getStockTypes(){
+  return await mysqlSelect('SELECT stockName FROM StockTypes');
+}
+
+async function getAreaList(){
+  return await mysqlSelect('SELECT areaName FROM Areas');
+}
+
+async function getStoreList(){
+  return await mysqlSelect('SELECT locationName FROM Locations');
+}
+
+async function getEarliestDate(){
+  return await mysqlSelect('SELECT MIN(deliveryArrivedDate) as earliestDate FROM Deliveries WHERE deliveryArrivedDate IS NOT NULL');
+}
+
+async function getLatestDate(){
+  return await mysqlSelect('SELECT MAX(deliveryArrivedDate) as latestDate FROM Deliveries WHERE deliveryArrivedDate IS NOT NULL');
+}
+
+async function getStockTotals(dateFrom, dateTo){
+  return await mysqlSelect('SELECT stockName,SUM(numOfBags) as totalStock,stockColour FROM Deliveries LEFT JOIN StockTypes ON stockType = stockID WHERE deliveryArrivedDate IS NOT NULL AND cast(deliveryArrivedDate as date) BETWEEN ? AND ? GROUP BY stockID',
+  [dateFrom, dateTo]);
+}
+
+async function getBreakdownByStock(dateFrom, dateTo){
+  return await mysqlSelect(
+    'SELECT stockName, stockColour, MONTH(deliveryArrivedDate) AS StockMonth, SUM(numOfBags) AS TotalBags FROM Deliveries LEFT JOIN StockTypes ON stockType = stockID WHERE deliveryArrivedDate IS NOT NULL AND cast(deliveryArrivedDate as date) BETWEEN ? AND ? GROUP BY stockType, MONTH(deliveryArrivedDate) ORDER BY MONTH(deliveryArrivedDate) ASC, stockType ASC',
+    [dateFrom, dateTo]);
+}
+
+
+// Exported Functions
+
+module.exports = {
+  //Add
+  addStockType: addStockType,
+  addNewDelivery: addNewDelivery,
+
+  //Get
+  getStockTypes: getStockTypes,
+  getAreaList: getAreaList,
+  getStoreList: getStoreList,
+  getEarliestDate: getEarliestDate,
+  getLatestDate: getLatestDate,
+  getUpcomingDeliveries: getUpcomingDeliveries,
+  getDeliveryReceipts: getDeliveryReceipts,
+  getStockTotals: getStockTotals,
+  getBreakdownByStock: getBreakdownByStock,
 }
