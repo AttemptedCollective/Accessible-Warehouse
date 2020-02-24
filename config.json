@@ -4,5 +4,11 @@
       "user": "webuser",
       "password": "sW93^#KeuDJa",
       "database": "warehouse"
+    },
+    "googlemysql": {
+      "DB_HOST": "35.189.115.226",
+      "DB_DATABASE": "warehouse",
+      "DB_USER": "webuser",
+      "DB_PASS": "sW93^#KeuDJa"
     }
   }

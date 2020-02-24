@@ -19,6 +19,22 @@ async function mysqlConnection() //Handles MySQL Database connections
 
 async function newMysqlConnection() { //Creates a MySQL Database connection
   const newMysqlConn = await mysql.createConnection(config.mysql); //Create MySQL connection using the settings from the config
+  
+  const newMysqlConn = await mysql.createConnection({
+    host: process.config.googlemysql.DB_HOST,
+    user: process.config.googlemysql.DB_USER,
+    database: process.config.googlemysql.DB_DATABASE,
+    password: process.config.googlemysql.DB_PASS
+  });
+
+  newMysqlConn.connect(function(err) {
+    if (err) {
+      console.error('Error connecting: ' + err.stack);
+      return;
+    }
+    console.log('Connected as thread id: ' + connection.threadId);
+  });
+
   return newMysqlConn; //Return the new connection
 }
 

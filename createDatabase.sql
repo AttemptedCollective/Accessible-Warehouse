@@ -8,6 +8,21 @@ CREATE TABLE IF NOT EXISTS Areas (
      PRIMARY KEY (areaID)
 );
 
+CREATE TABLE IF NOT EXISTS Regions (
+     regionID INT NOT NULL AUTO_INCREMENT,
+     regionName varchar(60) NOT NULL,
+     PRIMARY KEY (regionID)
+);
+
+CREATE TABLE IF NOT EXISTS Clusters (
+     clusterID INT NOT NULL AUTO_INCREMENT,
+     cluseterName varchar(60) NOT NULL,
+     regionID INT NOT NULL,
+     PRIMARY KEY (clusterID),
+     FOREIGN KEY (regionID) REFERENCES Regions(regionID)
+);
+
+
 CREATE TABLE IF NOT EXISTS Locations (
      locationID INT NOT NULL AUTO_INCREMENT,
      locationArea INT NOT NULL,
