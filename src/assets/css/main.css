@@ -32,19 +32,19 @@ body {
     overflow: hidden;
     display: grid;
     grid-template-areas:
-        "userarea displayarea ."
+        "logoarea userarea userarea"
         "sidebar displayarea ."
         "copyright displayarea .";
     grid-template-rows: 7.5% 85% 7.5%;
     grid-template-columns: 200px auto 0;
-    grid-column-gap: 2vw;
+    /* grid-column-gap: 2vw; */
 }
 
 /*------------------------------------------------*\
-    User Area - Displays who is logged in
+    Logo Area
 \*------------------------------------------------*/
 
-userarea {
+logoarea {
     background-color: #DF2935;
     border-right-style: solid;
     border-right-color: rgb(175, 35, 44);
@@ -52,29 +52,51 @@ userarea {
     width: 100%;
     height: 102%;
     display: flex;
-    justify-content: center;
-    grid-area: userarea;
+    justify-content: left;
+    grid-area: logoarea;
 }
 
-userarea > div {
-    width: 100%;
-    height: 100%;
-}
-
-userarea > div > .large.user.circle.icon {
+logoarea > div {
+    font-family: Calibri, sans-serif;
     color: white;
-    padding-top: 25px;
-    width: 100%;
+    font-size: 1.15em;
     margin: auto;
 }
 
-.user.circle.icon > username {
-    font-family: Calibri, sans-serif;
-    padding-left: 0.5em;
-    color: white;
-    font-size: 0.9em;
+
+/*------------------------------------------------*\
+    User Area
+\*------------------------------------------------*/
+
+userarea {
+    height: 100%;
+    width: 100%;
+    background-color: var(--main-nav-color);
+    border-bottom-style: solid;
+    border-bottom-color: rgb(49, 53, 56);
+    border-bottom-width: 4px;
+    display: grid;
+    grid-template-areas: "searcharea username";
+    grid-template-columns: 92.5% 7.5%;
+
 }
 
+userarea > div {
+    height: 80%;
+    width: 100%;
+    grid-area: username;
+    border-left-style: solid;
+    border-left-color: rgb(49, 53, 56);
+    border-left-width: 2px;
+    color: white;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+userarea > div > * {
+    margin: auto;
+}
 
 
 /*------------------------------------------------*\
@@ -260,4 +282,21 @@ canvas {
 
 .tableArea {
   margin: auto 1vw;
+}
+
+
+/*------------------------------------------------*\
+    Media Queries
+\*------------------------------------------------*/
+
+@media only screen and (max-width: 600px) {
+    body {
+        display: grid;
+        grid-template-areas:
+        "userarea sidebar"
+        "displayarea displayarea    "
+        "copyright copyright";
+        grid-template-rows: 7.5% 85% 7.5%;
+        grid-template-columns: 7.5% 1fr;
+    }
 }
