@@ -1,6 +1,9 @@
 // Variables and Global functions
 const displayArea = document.getElementsByTagName('displayArea')[0];
 const today = new Date().toISOString().slice(0, 19);
+const createNewOutboundDeliveryButton = document.getElementById('createNewOutboundDelivery');
+const overlay = document.getElementById('overlay');
+const overlayForm = document.getElementById('overlayForm');
 
 // Server Functions
 // ADD
@@ -131,6 +134,32 @@ async function createWidgitsForDashboard(numOfWidgits) {
   }
 }
 
+function createFormElement(tag, type, placeholder) {
+  let element = document.createElement(tag);
+  if (type != "") element.type = type;
+  if (placeholder != "") element.placeholder = placeholder;
+  return element;
+}
+
+
 //Functions to be run on load
 let listOfWidgits = new Array(WarehouseWidgit);
 createWidgitsForDashboard(1);
+
+document.addEventListener('click', () => {
+  if (overlay.classList.contains('hidden')) {
+    while (overlayForm.firstChild) {
+      overlayForm.removeChild(overlayForm.lastChild);
+    }
+  }
+});
+
+createNewOutboundDeliveryButton.addEventListener('click', () => {
+  if (overlay.classList.contains('hidden')) {
+    overlayForm.appendChild(createFormElement('input', "", "Delivery Location"));
+    overlayForm.appendChild(createFormElement('input', "", "Type of Stock"));
+    overlayForm.appendChild(createFormElement('input', "", "Quantity of Stock"));
+    overlayForm.appendChild(createFormElement('input', "submit", ""));
+  }
+  overlay.classList.toggle("hidden");
+});

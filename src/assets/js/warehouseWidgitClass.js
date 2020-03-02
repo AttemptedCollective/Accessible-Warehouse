@@ -133,7 +133,7 @@ class WarehouseWidgit {
                     credentials: 'same-origin',
                     method: 'GET',
                 };
-                response = await fetch('/api/getDeliveryReceipts?startIndex='+this.currentIndex+'&numberOfRecords='+10, fetchOptions);
+                response = await fetch('/api/getDeliveryReceipts?startIndex='+this.currentIndex+'&numberOfRecords='+7, fetchOptions);
                 if (!response.ok) {
                     console.log(response.status);
                     return;
