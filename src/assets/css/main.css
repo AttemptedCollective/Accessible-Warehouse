@@ -281,7 +281,48 @@ canvas {
 \*------------------------------------------------*/
 
 .tableArea {
-  margin: auto 1vw;
+    margin: auto 1vw;
+}
+
+/*------------------------------------------------*\
+    Overlay Design
+\*------------------------------------------------*/
+overlay {
+    position: fixed; /* Sit on top of the page content */
+    height: 93.5%;
+    width: calc(100% - 200px);
+    top: 7.5%;
+    left: 200px;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    padding: 2.5%;
+    display: grid;
+    grid-template-rows: 10% 90%;
+}
+
+overlayTitle {
+    background-color: #e0e0e0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px 5px 0 0;
+    border-bottom: lightgray;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+overlayTitle > p {
+    height: 20%;
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 2vh;
+}
+
+overlayOptions {
+    background-color: #f0f0f0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 5px 5px;
 }
 
 
@@ -293,10 +334,10 @@ canvas {
     body {
         display: grid;
         grid-template-areas:
-        "userarea sidebar"
-        "displayarea displayarea    "
-        "copyright copyright";
-        grid-template-rows: 7.5% 85% 7.5%;
-        grid-template-columns: 7.5% 1fr;
+        "logoarea logoarea userarea userarea"
+        ". displayarea displayarea ."
+        "copyright copyright copyright copyright";
+        grid-template-rows: 5% 90% 5%;
+        grid-template-columns: 7.5% 42.5% 42.5% 7.5%;
     }
 }
