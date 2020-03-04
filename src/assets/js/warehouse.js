@@ -156,6 +156,7 @@ document.addEventListener('click', () => {
 
 createNewOutboundDeliveryButton.addEventListener('click', () => {
   if (overlay.classList.contains('hidden')) {
+    document.getElementById("overlayTitle").innerHTML = "Paragraph changed!";
     overlayForm.appendChild(createFormElement('input', "", "Delivery Location"));
     overlayForm.appendChild(createFormElement('input', "", "Type of Stock"));
     overlayForm.appendChild(createFormElement('input', "", "Quantity of Stock"));
