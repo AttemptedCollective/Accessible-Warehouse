@@ -95,10 +95,8 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
         return;
     }
 
-    console.log("Creating Element");
     
     data.forEach(element => {
-        console.log(element, chosenStock);
         if (chosenStock.includes(element.stockName || chosenStock == [])) {
             formattedData.labels.push(element.stockName);
             formattedData.datasets[0].data.push(element.totalStock);
