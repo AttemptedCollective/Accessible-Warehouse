@@ -135,7 +135,6 @@ async function getBreakdownByStock(dateFrom, dateTo){
 
 
 // Exported Functions
-
 module.exports = {
   //Add
   addStockType: addStockType,

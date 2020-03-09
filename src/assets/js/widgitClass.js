@@ -172,7 +172,7 @@ class Widgit {
         let range = this.convertDate();;
         switch(this.dataType){
             case 1:
-                let formattedData = await clientGetStockTotals(formattedData, this.chosenStock, range);
+                formattedData = await clientGetStockTotals(formattedData, this.chosenStock, range);
                 return formattedData;
             case 2:
                 fetchOptions = {
