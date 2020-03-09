@@ -10,9 +10,9 @@ const templates = [
 ];
 
 const cardSettings = [
-  {title:"Outbound Stock Totals - Live", graphType:"pie", cardType:1, area:cardArea},
-  {title:"Outbound Stock Totals - Expected", graphType:"bar", cardType:2, area:cardArea},
-  {title:"Outbound Stock Totals - This Month So Far", graphType:"polarArea", cardType:3, area:cardArea},
+  {title:"Outbound Stock Totals - Live", chartType:"pie", cardType:1, area:cardArea},
+  {title:"Outbound Stock Totals - Expected", chartType:"bar", cardType:2, area:cardArea},
+  {title:"Outbound Stock Totals - This Month So Far", chartType:"polarArea", cardType:3, area:cardArea},
 ];
 
 let stockNames = [];
