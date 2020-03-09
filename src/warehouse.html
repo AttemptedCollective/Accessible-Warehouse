@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <head>
-    <!-- link to the main.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.4.3/css/semantic-ui/tabulator_semantic-ui.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.4.3/js/tabulator.min.js"></script>
 </head>
 
 <body>
@@ -32,25 +33,9 @@
         </nav>
     </sidebar>
     <copyright><p>&copy; Copyright 2019, Tyler Davis</p></copyright>
-    <holder><displayArea>
-    </displayArea></holder>
-    <overlay id="overlay" class="hidden">
-        <overlayTitle id="overlayTitle"><p align="center">Title Here</p></overlayTitle>
-        <overlayOptions>
-            <form id="overlayForm" action=""></form>
-        </overlayOptions>
-    </overlay>
+    <holder><displayArea></displayArea><cardArea></cardArea></holder>
 </body>
 
-<div class="ui right floated pagination menu footerMenu">
-    <a class="icon item">
-      <i class="left chevron icon"></i>
-    </a>
-    <a class="icon item">
-      <i class="right chevron icon"></i>
-    </a>
-</div>
-
-<!-- <script src="../node_modules/socket.io-client/dist/socket.io.js"></script> -->
-<script src="assets/js/warehouseWidgitClass.js"></script>
+<script src="assets/js/cardClass.js"></script>
+<script src="assets/js/widgitClass.js"></script>
 <script src="assets/js/warehouse.js"></script>

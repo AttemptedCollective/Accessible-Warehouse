@@ -6,6 +6,8 @@
 :root {
     --main-bg-color: #FEFDFF;
     --main-nav-color: #393E41;
+    --title-background-colour: #f5f5f5;
+    --wc-border-colour: #ededed;
   }
 
 * {
@@ -175,13 +177,20 @@ copyright p {
 holder {
     grid-area: displayarea;
     padding: 2.5%;
+    display: grid;
+    grid-template-columns: 70% 27.5%;
+    grid-column-gap: 2.5%
 }
 
-displayArea {
+displayArea, cardArea {
     height: 100%;
     width: 100%;
     display: grid;
     grid-gap: 1.5vw;
+}
+
+cardArea {
+  grid-template-rows: 1fr 1fr 1fr;
 }
 
 /*------------------------------------------------*\
@@ -206,10 +215,10 @@ displayArea > div {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-rows: 10% 70% 15%;
+  grid-template-rows: 10% 75% 10%;
   grid-row-gap: 2.5%;
   padding: 1vh;
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--wc-border-colour);
   border-radius: 5px;
   box-shadow: 1px 1px 5px grey;
 }
@@ -217,6 +226,11 @@ displayArea > div {
 .topOptionsContainer {
     width: 100%;
     height: 100%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--wc-border-colour);
+    /* background-color: var(--title-background-colour); */
     display: flex;
     justify-content: center;
 }
@@ -238,12 +252,12 @@ displayArea > div {
     margin: auto;
 }
 
-.canvasContainer {
+.canvasContainer, .tableContainer {
   width: 100%;
-  height: 100%;
+  height: 95%;
 }
 
-canvas {
+canvas, .tableContainer {
   margin: auto;
 }
 
@@ -275,7 +289,6 @@ canvas {
     display: none;
 }
 
-
 /*------------------------------------------------*\
     Table Area Design
 \*------------------------------------------------*/
@@ -285,46 +298,30 @@ canvas {
 }
 
 /*------------------------------------------------*\
-    Overlay Design
+    Card Area
 \*------------------------------------------------*/
-overlay {
-    position: fixed; /* Sit on top of the page content */
-    height: 93.5%;
-    width: calc(100% - 200px);
-    top: 7.5%;
-    left: 200px;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    padding: 2.5%;
-    display: grid;
-    grid-template-rows: 10% 90%;
+
+cardArea > div {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 10% 85%;
+  grid-row-gap: 2.5%;
+  padding: 1vh;
+  border: 1px solid var(--wc-border-colour);
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px grey;
 }
 
-overlayTitle {
-    background-color: #e0e0e0;
-    width: 100%;
-    height: 100%;
-    border-radius: 5px 5px 0 0;
-    border-bottom: lightgray;
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
+.cardTitle {
+  text-align: center;
+  justify-content: center;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--wc-border-colour);
+  /* background-color: var(--title-background-colour); */
 }
-
-overlayTitle > p {
-    height: 20%;
-    font-size: 1.5em;
-    text-align: center;
-    padding-top: 2vh;
-}
-
-overlayOptions {
-    background-color: #f0f0f0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0 0 5px 5px;
-}
-
 
 /*------------------------------------------------*\
     Media Queries
@@ -332,12 +329,33 @@ overlayOptions {
 
 @media only screen and (max-width: 600px) {
     body {
+        width: 100%;
+        height: auto;
         display: grid;
+        overflow: scroll;
         grid-template-areas:
-        "logoarea logoarea userarea userarea"
-        ". displayarea displayarea ."
-        "copyright copyright copyright copyright";
-        grid-template-rows: 5% 90% 5%;
-        grid-template-columns: 7.5% 42.5% 42.5% 7.5%;
+        "logoarea userarea "
+        "displayarea displayarea"
+        "copyright copyright ";
+        grid-template-rows: 5% auto 5%;
+        grid-template-columns: 40% 40%;
+        grid-gap: 1vh;
+    }
+
+    holder {
+        grid-area: displayarea;
+        padding: 2.5%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        grid-row-gap: 2.5%
+    }
+
+    displayArea, cardArea {
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-column-gap: 0vh;
+        grid-row-gap: 1vh;
     }
 }
