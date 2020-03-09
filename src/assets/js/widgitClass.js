@@ -24,7 +24,7 @@ const templateTableData = [
 ];
 
 class Widgit {
-      constructor(parent, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate) {
+    constructor(parent, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate) {
         this.listOfStockTypes = listOfStockTypes;
         this.listOfAreas = listOfAreas;
         this.listOfStores = listOfStores;
@@ -169,40 +169,11 @@ class Widgit {
             backgroundColor: [],
           }]
         };
-        let fetchOptions;
-        let response;
-        let data;
-        let range;
+        let range = this.convertDate();;
         switch(this.dataType){
             case 1:
-
-              fetchOptions = {
-                credentials: 'same-origin',
-                method: 'GET',
-              };
-              range = this.convertDate();
-              response = await fetch('/api/getStockTotals?dateFrom='+range[0]+'&dateTo='+range[1], fetchOptions);
-              if (!response.ok) {
-                console.log(response.status);
-                return;
-              }
-              data = await response.json();
-              if (data.length == 0) {
-                return;
-              }
-
-              data.forEach(element => {
-                  if (this.chosenStock.includes(element.stockName)) {
-                    formattedData.labels.push(element.stockName);
-                    formattedData.datasets[0].data.push(element.totalStock);
-                    formattedData.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
-                  }
-              })
-              this.options = {
-                responsive: "true"
-                }
-
-              return formattedData;
+                let formattedData = await clientGetStockTotals(formattedData, this.chosenStock, range);
+                return formattedData;
             case 2:
                 fetchOptions = {
                     credentials: 'same-origin',

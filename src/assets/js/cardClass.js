@@ -79,82 +79,20 @@ class Card {
         }]
       }
     };
-    let fetchOptions = {
-      credentials: 'same-origin',
-      method: 'GET',
-    };
-    let response;
-    let data;
-
 
     switch (this.dataType) {
       case 1:
-        response = await fetch('/api/getStockTotals?dateFrom='+this.today+'&dateTo='+this.today, fetchOptions);
-
-        if (!response.ok) {
-          console.log(response.status);
-          return;
-        }
-        data = await response.json();
-        if (data.length == 0) {
-          console.log("Empty");
-          return;
-        }
-
-        data.forEach(element => {
-            formattedData.data.labels.push(element.stockName);
-            formattedData.data.datasets[0].data.push(element.totalStock);
-            formattedData.data.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
-        })
-        this.options = {
-          responsive: "true"
-        }
+        [formattedData, this.options] = await clientGetStockTotals(formattedData, [this.today, this.today]);
         return formattedData;
 
       case 2:
-        response = await fetch('/api/getStockTotals?dateFrom='+this.today+'&dateTo='+this.today, fetchOptions);
-
-        if (!response.ok) {
-          console.log(response.status);
-          return;
-        }
-        data = await response.json();
-        if (data.length == 0) {
-          return;
-        }
-
-        data.forEach(element => {
-            formattedData.data.labels.push(element.stockName);
-            formattedData.data.datasets[0].data.push(element.totalStock);
-            formattedData.data.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
-        })
-        this.options = {
-          responsive: "true"
-        }
+        [formattedData, this.options] = await clientGetStockTotals(formattedData, [this.today, this.today]);
         formattedData.type = "bar";
         formattedData.data.datasets[0].label = '# of Stock';
         return formattedData;
 
       case 3:
-        response = await fetch('/api/getStockTotals?dateFrom='+this.today.slice(0, -2)+'01'+'&dateTo='+this.today.slice(0, -2)+'31', fetchOptions);
-
-        if (!response.ok) {
-          console.log(response.status);
-          return;
-        }
-        data = await response.json();
-        if (data.length == 0) {
-          return;
-        }
-
-        data.forEach(element => {
-            formattedData.data.labels.push(element.stockName);
-            formattedData.data.datasets[0].data.push(element.totalStock);
-            formattedData.data.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
-        })
-        this.options = {
-          responsive: "true"
-        }
+        [formattedData, this.options] = await clientGetStockTotals(formattedData, [this.today.slice(0, -2)+'01', this.today.slice(0, -2)+'31']);
         formattedData.type = "polarArea";
         return formattedData;
       default:

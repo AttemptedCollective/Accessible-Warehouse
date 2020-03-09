@@ -8,129 +8,36 @@ const templates = [
   {name: "Outgoing Deliveries - Waiting ", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:2, tableMode:true}
 ];
 
+const cardSettings = [
+  {title:"Outbound Stock Totals - Live", cardType:1, area:cardArea},
+  {title:"Outbound Stock Totals - Expected", cardType:2, area:cardArea},
+  {title:"Outbound Stock Totals - This Month So Far", cardType:3, area:cardArea},
+];
+
 function monthNumToName(monthnum) {
   let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   return months[monthnum - 1] || '';
 }
 
-//GET
-async function getListOfStockTypes() {
-    const fetchOptions = {
-      credentials: 'same-origin',
-      method: 'GET',
-    };
-    response = await fetch('/api/getStockTypes', fetchOptions);
-    if (!response.ok) {
-      console.log(response.status);
-      return;
-    }
-    data = await response.json();
-    if (data.length == 0) {
-      return;
-    }
-    let formattedData = [];
-    data.forEach(stock => {
-      formattedData.push(stock.stockName);
-    })
-    return formattedData;
-}
-
-async function getAreaList() {
-  const fetchOptions = {
-    credentials: 'same-origin',
-    method: 'GET',
-  };
-  response = await fetch('/api/getAreaList', fetchOptions);
-  if (!response.ok) {
-    console.log(response.status);
-    return;
-  }
-  data = await response.json();
-  if (data.length == 0) {
-    return;
-  }
-  let formattedData = [];
-  data.forEach(area => {
-    formattedData.push(area.areaName);
-  })
-  return formattedData;
-}
-
-async function getStoreList() {
-  const fetchOptions = {
-    credentials: 'same-origin',
-    method: 'GET',
-  };
-  response = await fetch('/api/getStoreList', fetchOptions);
-  if (!response.ok) {
-    console.log(response.status);
-    return;
-  }
-  data = await response.json();
-  if (data.length == 0) {
-    return;
-  }
-  let formattedData = [];
-  data.forEach(location => {
-    formattedData.push(location.locationName);
-  })
-  return formattedData;
-}
-
-async function getEarliestDate() {
-  const fetchOptions = {
-    credentials: 'same-origin',
-    method: 'GET',
-  };
-  response = await fetch('/api/getEarliestDate', fetchOptions);
-  if (!response.ok) {
-    console.log(response.status);
-    return;
-  }
-  data = await response.json();
-  if (data.length == 0) {
-    return;
-  }
-  return data.earliestDate;
-}
-
-async function getLatestDate() {
-  const fetchOptions = {
-    credentials: 'same-origin',
-    method: 'GET',
-  };
-  response = await fetch('/api/getLatestDate', fetchOptions);
-  if (!response.ok) {
-    console.log(response.status);
-    return;
-  }
-  data = await response.json();
-  if (data.length == 0) {
-    return;
-  }
-  return data.latestDate;
-}
-
 // Generic widgit Functions
 // These functions will be use to populate and create widgits
 async function createWidgitsForDashboard(numOfWidgits) {
-  let listOfStockTypes = await getListOfStockTypes();
-  let listOfAreas = await getAreaList();
-  let listOfStores = await getStoreList();
-  let earliestDate = await getEarliestDate();
-  let latestDate = await getLatestDate();
+  let listOfStockTypes = await clientGetListOfStockTypes();
+  let listOfAreas = await clientGetAreaList();
+  let listOfStores = await clientGetStoreList();
+  let earliestDate = await clientGetEarliestDate();
+  let latestDate = await clientGetLatestDate();
 
   for (var i = 0; i < numOfWidgits; i++) {
-    console.log("Creating Widgit: ", i);
     listOfWidgits[i] = new Widgit(displayArea, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate);
   }
 }
 
 //Card Creation
 async function createCards() {
-  listOfCards[0] = new Card("Outbound Stock Totals - Live", 1, cardArea);
-  listOfCards[1] = new Card("Outbound Stock Totals - Expected", 2, cardArea);
-  listOfCards[2] = new Card("Outbound Stock Totals - This Month So Far", 3, cardArea);
+  listOfCards[0] = new Card(cardSettings[0].title, cardSettings[0].cardType, cardSettings[0].area);
+  listOfCards[1] = new Card(cardSettings[1].title, cardSettings[1].cardType, cardSettings[1].area);
+  listOfCards[2] = new Card(cardSettings[2].title, cardSettings[2].cardType, cardSettings[2].area);
 }
 
 // Code to be run on load
