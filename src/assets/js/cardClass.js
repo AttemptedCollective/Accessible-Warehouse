@@ -36,7 +36,7 @@ let cardTemplateData = {
 };
 
 class Card {
-  constructor(title, dataType, cardArea) {
+  constructor(title, chartType, dataType, cardArea) {
         this.today = new Date().toJSON().slice(0, 10);
         this.cardArea = cardArea
         this.card = document.createElement("div");
@@ -57,6 +57,7 @@ class Card {
 
         this.context = this.canvas.getContext('2d');
 
+        this.chartType = chartType;
         this.dataType = dataType;
         this.chart = this.createChart();
   }
@@ -64,21 +65,22 @@ class Card {
   async createChart() {
     let data = await this.getData()
 
-    let chart = new Chart(this.context, data)
+    let chart = new Chart(this.context, {
+      type: this.chartType,
+      data: this.chartData,
+      options: this.options
+    });
     return chart;
   }
 
   async getData() {
     let formattedData = {
-      type: "pie",
-      data: {
         labels: [],
         datasets: [{
           data: [],
           backgroundColor: [],
         }]
-      }
-    };
+      };
 
     switch (this.dataType) {
       case 1:
@@ -87,13 +89,11 @@ class Card {
 
       case 2:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
-        formattedData.type = "bar";
-        formattedData.data.datasets[0].label = '# of Stock';
+        formattedData.datasets[0].label = '# of Stock';
         return formattedData;
 
       case 3:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today.slice(0, -2)+'01', this.today.slice(0, -2)+'31']);
-        formattedData.type = "polarArea";
         return formattedData;
       default:
         return cardTemplateData;
