@@ -1,14 +1,16 @@
 // Variables and Global functions
 const displayArea = document.getElementsByTagName('displayArea')[0];
-const gridNumButton = document.getElementById('gridNum');
+const cardArea = document.getElementsByTagName('cardArea')[0];
 const today = new Date().toISOString().slice(0, 19);
-let stockNames = [];
-let gridNumber = [1, 1];
 
-// const socket = io();
-// socket.on('broadcast',function(data) {
-//   reportmap = createReportMap();
-// });
+const templates = [
+    {name: "Total Stock Distributed Over Time", chartType:"polarArea", options: ["date", "specificDate", "stock"], dataType:1, tableMode:false},
+    {name: "Breakdown of Stock Distributed Over Time", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:2, tableMode:false},
+    {name: "Breakdown of Stock Distributed Over Time (Stacked)", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:2, tableMode:false}
+];
+
+
+let stockNames = [];
 
 function monthNumToName(monthnum) {
   let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -123,15 +125,22 @@ async function createWidgitsForDashboard(numOfWidgits) {
   let latestDate = await getLatestDate();
 
   for (var i = 0; i < numOfWidgits; i++) {
-    listOfWidgits[i] = new Widgit(displayArea, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate);
+    console.log("Creating Widgit: ", i);
+    listOfWidgits[i] = new Widgit(displayArea, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate);
   }
+}
+
+//Card Creation
+async function createCards() {
+  listOfCards[0] = new Card("Outbound Stock Totals - Live", 1, cardArea);
+  listOfCards[1] = new Card("Outbound Stock Totals - Expected", 2, cardArea);
+  listOfCards[2] = new Card("Outbound Stock Totals - This Month So Far", 3, cardArea);
 }
 
 // Code to be run on load
 Chart.defaults.global.maintainAspectRatio = false;
-gridNumButton.text = "Number of Widgets: " + (gridNumber[0]*gridNumber[1]);
-displayArea.style.setProperty('grid-template-rows', 'repeat(' + gridNumber[0] + ', 1fr)');
-displayArea.style.setProperty('grid-template-columns', 'repeat(' + gridNumber[1] + ', 1fr)');
 let listOfWidgits = new Array(Widgit);
+let listOfCards = new Array(Card);
 
-createWidgitsForDashboard((gridNumber[0]*gridNumber[1]));
+createWidgitsForDashboard(1);
+createCards();

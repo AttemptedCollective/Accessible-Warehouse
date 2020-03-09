@@ -1,9 +1,3 @@
-const templates = [
-    {name: "Total Stock Distributed Over Time", chartType:"polarArea", options: ["date", "specificDate", "stock"], dataType:1},
-    {name: "Breakdown of Stock Distributed Over Time", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:2},
-    {name: "Breakdown of Stock Distributed Over Time (Stacked)", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:2}
-];
-
 const templateData = {
     labels: ["Red", "Blue", "Yellow"],
     datasets: [{
@@ -12,13 +6,31 @@ const templateData = {
     }]
 }
 
+const templateTableColumns = [
+    {title:"Location", field:"location", sorter:"string"},
+    {title:"Stock Type", field:"stockType", sorter:"string"},
+    {title:"Quantity", field:"stockNum", sorter:"number"},
+    {title:"Delivery Date", field:"dueDate"}
+];
+
+const templateTableData = [
+    {location:"Cornwall Street", stockType:"Oslo", stockNum:12, dueDate:"14/05/2020"},
+    {location:"Newquay", stockType:"General", stockNum:15, dueDate:"15/05/2020"},
+    {location:"Seaton", stockType:"General", stockNum:11, dueDate:"15/05/2020"},
+    {location:"Paignton", stockType:"Oslo", stockNum:12, dueDate:"16/05/2020"},
+    {location:"Falmouth", stockType:"Gold", stockNum:9, dueDate:"16/05/2020"},
+    {location:"Cornwall Street", stockType:"Revive", stockNum:18, dueDate:"17/05/2020"},
+    {location:"Newquay", stockType:"General", stockNum:24, dueDate:"18/05/2020"}
+];
+
 class Widgit {
-      constructor(parent, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate) {
+      constructor(parent, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate) {
         this.listOfStockTypes = listOfStockTypes;
         this.listOfAreas = listOfAreas;
         this.listOfStores = listOfStores;
         this.earliestDate = earliestDate;
         this.latestDate = latestDate;
+        this.templates = templates;
 
         this.chosenStock = listOfStockTypes;
         this.firstClick = true;
@@ -34,7 +46,8 @@ class Widgit {
         this.select = document.createElement("select");
         this.topOptionsContainer.appendChild(this.select);
         this.select.classList.add("ui", "dropdown", 'reportSelect');
-        templates.forEach(template => {
+
+        this.templates.forEach(template => {
             let opt = document.createElement("option");
             opt.value= template.name
             opt.innerHTML = template.name;
@@ -94,17 +107,26 @@ class Widgit {
         this.widgit.appendChild(this.canvasContainer);
         this.context = this.canvas.getContext("2d");
 
+        //Create Table Area
+        this.tableContainer = document.createElement("div")
+        this.tableContainer.classList.add("tableContainer", "hidden")
+        this.table = document.createElement("div");
+        this.table.classList.add("table")
+        this.tableContainer.appendChild(this.table);
+        this.widgit.appendChild(this.tableContainer);
+
         //Create Options Area
         this.optionsContainer = document.createElement("div");
         this.optionsContainer.classList.add("optionsContainer");
         this.widgit.appendChild(this.optionsContainer);
 
         //Set chartType and create Options Area
-        templates.forEach(template => {
+        this.templates.forEach(template => {
             if (template.name == this.select.value){
                 this.chartType = template.chartType;
                 this.dataType = template.dataType
                 this.chartOptions = template.options;
+                this.tableMode = template.tableMode;
                 this.updateOptionsArea();
                 this.linkOptions();
                 this.chosenOptions = this.updateChosenOptions();
@@ -116,7 +138,8 @@ class Widgit {
         this.options = {
             responsive: "true"
         }
-        this.createGraph(this.chartData);
+        if (!this.tableMode) this.createGraph(this.chartData);
+        else this.createTable();
         $('.ui.selection').dropdown();
     }
 
@@ -280,17 +303,27 @@ class Widgit {
         });
     }
 
+    async createTable() {
+      this.tabulatorTable = new Tabulator(this.table, {
+          layout:"fitColumns",
+          columns:templateTableColumns,
+          data:templateTableData
+      });
+    }
+
     updateTypeAndOptions() {
-        templates.forEach(template => {
+        this.templates.forEach(template => {
             if (template.name == this.select.value){
                 this.setType(template.chartType);
                 this.setDataType(template.dataType);
+                this.tableMode = template.tableMode;
                 this.updateOptionsArea();
                 this.linkOptions();
                 this.chosenOptions = this.updateChosenOptions();
             }
         });
-        this.createGraph();
+        if (!this.tableMode) this.createGraph();
+        else this.createTable();
     }
 
     async updateChart() {
@@ -431,6 +464,15 @@ class Widgit {
                     break;
             }
         });
+        if (this.tableMode) {
+            this.canvasContainer.classList.add("hidden");
+            this.tableContainer.classList.remove("hidden");
+            this.optionsContainer.classList.add("hidden");
+        } else if (this.optionsContainer.classList.contains("hidden")) {
+          this.canvasContainer.classList.remove("hidden");
+          this.tableContainer.classList.add("hidden");
+          this.optionsContainer.classList.remove("hidden");
+        }
     }
 
     linkOptions() {
