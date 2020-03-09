@@ -83,28 +83,6 @@ async function clientGetLatestDate() {
 }
   
 //Widgit and Card Shared GET Queries
-async function clientGetStockTotals(formattedData, range) {
-    let response = await fetch('/api/getStockTotals?dateFrom='+range[0]+'&dateTo='+range[1], getFetchOptions);
-    if (!response.ok) {
-        console.log(response.status);
-        return;
-    }
-    let data = await response.json();
-        if (data.length == 0) {
-        return;
-    }
-
-    data.forEach(element => {
-        formattedData.labels.push(element.stockName);
-        formattedData.datasets[0].data.push(element.totalStock);
-        formattedData.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
-    });
-    let options = {
-        responsive: "true"
-    }
-    return [formattedData, options];
-}
-
 async function clientGetStockTotals(formattedData, chosenStock, range) {
     let response = await fetch('/api/getStockTotals?dateFrom='+range[0]+'&dateTo='+range[1], getFetchOptions);
     if (!response.ok) {
@@ -117,7 +95,7 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
     }
 
     data.forEach(element => {
-        if (chosenStock.includes(element.stockName)) {
+        if (chosenStock.includes(element.stockName || chosenStock == [])) {
             formattedData.labels.push(element.stockName);
             formattedData.datasets[0].data.push(element.totalStock);
             formattedData.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
