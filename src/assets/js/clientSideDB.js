@@ -84,6 +84,7 @@ async function clientGetLatestDate() {
   
 //Widgit and Card Shared GET Queries
 async function clientGetStockTotals(formattedData, chosenStock, range) {
+    console.log(formattedData, chosenStock, range);    
     let response = await fetch('/api/getStockTotals?dateFrom='+range[0]+'&dateTo='+range[1], getFetchOptions);
     if (!response.ok) {
         console.log(response.status);
@@ -93,6 +94,7 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
         if (data.length == 0) {
         return;
     }
+    console.log(data, chosenStock.length == 0);    
 
     if (chosenStock.length == 0) chosenStock = await clientGetStoreList();
     data.forEach(element => {    
