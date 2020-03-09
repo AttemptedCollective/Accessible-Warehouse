@@ -93,10 +93,12 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
     let data = await response.json();
         if (data.length == 0) {
         return;
-    }
-    console.log(data, chosenStock.length == 0);    
+    } 
 
-    if (chosenStock.length == 0) chosenStock = await clientGetStoreList();
+    if (chosenStock.length == 0) {
+        chosenStock = await clientGetStoreList();
+        console.log(chosenStock);   
+    }
     data.forEach(element => {    
         if (chosenStock.includes(element.stockName)) {  
             console.log(element.stockName);      
