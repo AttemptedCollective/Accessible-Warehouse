@@ -93,9 +93,11 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
         if (data.length == 0) {
         return;
     }
-    
-    data.forEach(element => {
-        if (chosenStock.includes(element.stockName || chosenStock.length == 0)) {        
+
+    if (chosenStock.length == 0) chosenStock = await clientGetStoreList();
+    data.forEach(element => {    
+        if (chosenStock.includes(element.stockName)) {  
+            console.log(element.stockName);      
             formattedData.labels.push(element.stockName);
             formattedData.datasets[0].data.push(element.totalStock);
             formattedData.datasets[0].backgroundColor.push(element.stockColour.slice(0, -1)+", 0.75)");
