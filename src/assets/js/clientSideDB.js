@@ -96,7 +96,7 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
     } 
 
     if (chosenStock.length == 0) {
-        chosenStock = await clientGetStoreList();
+        chosenStock = await clientGetListOfStockTypes();
         console.log(chosenStock);   
     }
     data.forEach(element => {    
