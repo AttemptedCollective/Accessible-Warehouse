@@ -110,16 +110,16 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
 //Card Specific GET Queries
 
 //Exports
-module.exports = {
-    //ADD
+// module.exports = {
+//     //ADD
       
-    //Generic GET
-    clientGetListOfStockTypes: clientGetListOfStockTypes,
-    clientGetAreaList: clientGetAreaList,
-    clientGetStoreList: clientGetStoreList,
-    clientGetEarliestDate: clientGetEarliestDate,
-    clientGetLatestDate: clientGetLatestDate,
+//     //Generic GET
+//     clientGetListOfStockTypes: clientGetListOfStockTypes,
+//     clientGetAreaList: clientGetAreaList,
+//     clientGetStoreList: clientGetStoreList,
+//     clientGetEarliestDate: clientGetEarliestDate,
+//     clientGetLatestDate: clientGetLatestDate,
 
-    //Shared GET
-    clientGetStockTotals: clientGetStockTotals
-  }
+//     //Shared GET
+//     clientGetStockTotals: clientGetStockTotals
+//   }
