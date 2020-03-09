@@ -67,7 +67,7 @@ class Card {
 
     let chart = new Chart(this.context, {
       type: this.chartType,
-      data: this.chartData,
+      data: data,
       options: this.options
     });
     return chart;
