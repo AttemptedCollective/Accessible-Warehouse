@@ -9,9 +9,9 @@ const templates = [
 ];
 
 const cardSettings = [
-  {title:"Outbound Stock Totals - Live", cardType:1, area:cardArea},
-  {title:"Outbound Stock Totals - Expected", cardType:2, area:cardArea},
-  {title:"Outbound Stock Totals - This Month So Far", cardType:3, area:cardArea},
+  {title:"Outbound Stock Totals - Live", chartType:"pie", cardType:1, area:cardArea},
+  {title:"Outbound Stock Totals - Expected", chartType:"bar", cardType:2, area:cardArea},
+  {title:"Outbound Stock Totals - This Month So Far", chartType:"polarArea", cardType:3, area:cardArea},
 ];
 
 function monthNumToName(monthnum) {
@@ -35,9 +35,9 @@ async function createWidgitsForDashboard(numOfWidgits) {
 
 //Card Creation
 async function createCards() {
-  listOfCards[0] = new Card(cardSettings[0].title, cardSettings[0].cardType, cardSettings[0].area);
-  listOfCards[1] = new Card(cardSettings[1].title, cardSettings[1].cardType, cardSettings[1].area);
-  listOfCards[2] = new Card(cardSettings[2].title, cardSettings[2].cardType, cardSettings[2].area);
+  listOfCards[0] = new Card(cardSettings[0].title, cardSettings[0].chartType, cardSettings[0].cardType, cardSettings[0].area);
+  listOfCards[1] = new Card(cardSettings[1].title, cardSettings[1].chartType, cardSettings[1].cardType, cardSettings[1].area);
+  listOfCards[2] = new Card(cardSettings[2].title, cardSettings[2].chartType, cardSettings[2].cardType, cardSettings[2].area);
 }
 
 // Code to be run on load
