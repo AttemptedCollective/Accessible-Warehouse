@@ -82,17 +82,17 @@ class Card {
 
     switch (this.dataType) {
       case 1:
-        [formattedData, this.options] = await clientGetStockTotals(formattedData, [this.today, this.today]);
+        [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
         return formattedData;
 
       case 2:
-        [formattedData, this.options] = await clientGetStockTotals(formattedData, [this.today, this.today]);
+        [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
         formattedData.type = "bar";
         formattedData.data.datasets[0].label = '# of Stock';
         return formattedData;
 
       case 3:
-        [formattedData, this.options] = await clientGetStockTotals(formattedData, [this.today.slice(0, -2)+'01', this.today.slice(0, -2)+'31']);
+        [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today.slice(0, -2)+'01', this.today.slice(0, -2)+'31']);
         formattedData.type = "polarArea";
         return formattedData;
       default:
