@@ -94,12 +94,12 @@ class Card {
       case 2:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
         formattedData.datasets[0].label = '# of Stock';
-        this.options[legend][position] = 'top'
+        this.options.legend.posistion = 'top'
         return formattedData;
 
       case 3:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today.slice(0, -2)+'01', this.today.slice(0, -2)+'31']);
-        this.options[legend][position] = 'left'
+        this.options.legend.posistion = 'left'
         return formattedData;
       default:
         return cardTemplateData;
