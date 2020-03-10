@@ -271,12 +271,12 @@ class Widgit {
         } else {
             this.tabulatorTable = new Tabulator(this.table, {
                 height:"100%",
-                width:"100%",
+                width:"95%",
                 layout:"fitColumns",
                 responsiveLayout:"hide",
                 addRowPos:"bottom",
                 pagination:"local",
-                paginationSize:8,
+                paginationSize:10,
                 columns:tableColumns,
                 data:tableData
           });
