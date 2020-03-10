@@ -129,7 +129,7 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
 
 //
 async function clientListOfOutgoingDeliveries(isNull) {
-    let response = await fetch('/api/getOutgoingDeliveries?isNull='+isNull[0]+'&today='+today.slice(0,10), getFetchOptions);
+    let response = await fetch('/api/getOutgoingDeliveries?isNull='+isNull+'&today='+today.slice(0,10), getFetchOptions);
     let data = await checkResponse(response);
 
     let tableColumns = [
