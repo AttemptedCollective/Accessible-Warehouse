@@ -306,8 +306,8 @@ cardArea > div {
   width: 100%;
   display: grid;
   grid-template-rows: 10% 85%;
-  grid-row-gap: 2.5%;
-  padding: 1vh;
+  grid-row-gap: 2%;
+  padding: 2px;
   border: 1px solid var(--wc-border-colour);
   border-radius: 5px;
   box-shadow: 1px 1px 5px grey;
@@ -316,11 +316,11 @@ cardArea > div {
 .cardTitle {
   text-align: center;
   justify-content: center;
+  
   border-radius: 5px;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
   border-color: var(--wc-border-colour);
-  /* background-color: var(--title-background-colour); */
 }
 
 /*------------------------------------------------*\
