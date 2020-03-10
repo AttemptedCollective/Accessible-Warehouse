@@ -271,6 +271,7 @@ class Widgit {
         } else {
             this.tabulatorTable = new Tabulator(this.table, {
                 height:"100%",
+                width:"100%",
                 layout:"fitColumns",
                 responsiveLayout:"hide",
                 addRowPos:"bottom",
