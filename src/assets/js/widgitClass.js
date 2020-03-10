@@ -6,23 +6,6 @@ const templateData = {
     }]
 }
 
-const templateTableColumns = [
-    {title:"Location", field:"location", sorter:"string"},
-    {title:"Stock Type", field:"stockType", sorter:"string"},
-    {title:"Quantity", field:"stockNum", sorter:"number"},
-    {title:"Delivery Date", field:"dueDate"}
-];
-
-const templateTableData = [
-    {location:"Cornwall Street", stockType:"Oslo", stockNum:12, dueDate:"14/05/2020"},
-    {location:"Newquay", stockType:"General", stockNum:15, dueDate:"15/05/2020"},
-    {location:"Seaton", stockType:"General", stockNum:11, dueDate:"15/05/2020"},
-    {location:"Paignton", stockType:"Oslo", stockNum:12, dueDate:"16/05/2020"},
-    {location:"Falmouth", stockType:"Gold", stockNum:9, dueDate:"16/05/2020"},
-    {location:"Cornwall Street", stockType:"Revive", stockNum:18, dueDate:"17/05/2020"},
-    {location:"Newquay", stockType:"General", stockNum:24, dueDate:"18/05/2020"}
-];
-
 class Widgit {
     constructor(parent, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate) {
         this.listOfStockTypes = listOfStockTypes;
@@ -170,8 +153,6 @@ class Widgit {
           }]
         };
         let range = this.convertDate();
-        let tableColumns = [];
-        let tableData = [];
         switch(this.dataType){
             case 1:
                 [formattedData, this.options] = await clientGetStockTotals(formattedData, this.chosenStock, range);
