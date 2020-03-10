@@ -263,16 +263,22 @@ class Widgit {
 
     async createTable() {
         let [tableColumns, tableData] = await this.getFormattedData();
-        this.tabulatorTable = new Tabulator(this.table, {
-            height:"100%",
-            layout:"fitColumns",
-            responsiveLayout:"hide",
-            addRowPos:"bottom",
-            pagination:"local",
-            paginationSize:8,
-            columns:tableColumns,
-            data:tableData
-      });
+
+        if (this.tabulatorTable == null) {
+            this.tabulatorTable = new Tabulator(this.table, {
+                height:"100%",
+                layout:"fitColumns",
+                responsiveLayout:"hide",
+                addRowPos:"bottom",
+                pagination:"local",
+                paginationSize:8,
+                columns:tableColumns,
+                data:tableData
+          });
+        } else {
+            this.tabulatorTable.setColumns(tableColumns);
+            this.tabulatorTable.setColumns(tableData);
+        }
     }
 
     updateTypeAndOptions() {
