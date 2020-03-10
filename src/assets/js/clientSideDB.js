@@ -142,11 +142,11 @@ async function clientListOfOutgoingDeliveries(isNull) {
 
     let tableData = [];
 
-    data.forEach(row => {
-        tableData.push({locationName:row.locationName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryArrivedDate.slice(0,10), userName:row.userName})
-    });
-
-    if (tableData.length == 0) tableData = [{locationName:"N/A", stockType:"N/A", stockNum:"N/A", dueDate:"N/A", userName:"N/A"}]
+    if (data.length != 0) {
+        data.forEach(row => {
+            tableData.push({locationName:row.locationName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryArrivedDate.slice(0,10), userName:row.userName})
+        });
+    } else tableData = [{locationName:"N/A", stockType:"N/A", stockNum:"N/A", dueDate:"N/A", userName:"N/A"}]
     
     return [tableColumns, tableData]
 }
