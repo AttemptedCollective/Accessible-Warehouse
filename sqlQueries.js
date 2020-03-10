@@ -93,13 +93,9 @@ async function addNewDelivery(fromLocation, toLocation, stockType, numOfBags, dr
     Getting data from the database
 \*------------------------------------------------*/
 
-async function getUpcomingDeliveries(){
-  return await mysqlSelect('SELECT deliveryDueDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NULL ORDER BY deliveryDueDate ASC LIMIT 10;');
-}
-
-async function getDeliveryReceipts(startIndex, numberOfRecords){
-  return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NOT NULL ORDER BY deliveryDueDate DESC LIMIT ?, ?',
-  [startIndex, numberOfRecords]);
+async function getOutgoingDeliveries(isNull, today){
+  if (isNull) return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NULL AND Deliveries.deliveryDueDate > ? ORDER BY deliveryDueDate DESC',[today]);
+  else return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NOT NULL AND Deliveries.deliveryDueDate > ? ORDER BY deliveryDueDate DESC',[today]);
 }
 
 async function getStockTypes(){
@@ -146,8 +142,7 @@ module.exports = {
   getStoreList: getStoreList,
   getEarliestDate: getEarliestDate,
   getLatestDate: getLatestDate,
-  getUpcomingDeliveries: getUpcomingDeliveries,
-  getDeliveryReceipts: getDeliveryReceipts,
+  getOutgoingDeliveries: getOutgoingDeliveries,
   getStockTotals: getStockTotals,
   getBreakdownByStock: getBreakdownByStock,
 }

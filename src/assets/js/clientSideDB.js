@@ -1,8 +1,22 @@
-//Constants
+//Constants and functions used to simplify GET/ADD Requests
 const getFetchOptions = {
     credentials: 'same-origin',
     method: 'GET',
 };
+
+async function checkResponse(response) {
+    if (!response.ok) {
+        console.log(response.status);
+        return;
+    }
+    let data = await response.json();
+        if (data.length == 0) {
+        return;
+    } 
+
+    return data;
+}
+
 
 //General GET Queries
 async function clientGetListOfStockTypes() {
@@ -96,7 +110,6 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
 
     if (chosenStock.length == 0) {
         chosenStock = await clientGetListOfStockTypes();
-        console.log(chosenStock);   
     }
     data.forEach(element => {    
         if (chosenStock.includes(element.stockName)) {  
@@ -108,23 +121,17 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
     let options = {
         responsive: "true"
     }
-    console.log(formattedData, options);
     return [formattedData, options];
 }
 
+//
+async function clientListOfOutgoingDeliveries(isNull) {
+    let response = await fetch('/api/getOutgoingDeliveries?isNull='+range[0]+'&today='+today.slice(0,10), getFetchOptions);
+    let data = await checkResponse(response);
+
+    console.log(data);
+    
+    return formattedData
+}
+
 //Card Specific GET Queries
-
-//Exports
-// module.exports = {
-//     //ADD
-      
-//     //Generic GET
-//     clientGetListOfStockTypes: clientGetListOfStockTypes,
-//     clientGetAreaList: clientGetAreaList,
-//     clientGetStoreList: clientGetStoreList,
-//     clientGetEarliestDate: clientGetEarliestDate,
-//     clientGetLatestDate: clientGetLatestDate,
-
-//     //Shared GET
-//     clientGetStockTotals: clientGetStockTotals
-//   }

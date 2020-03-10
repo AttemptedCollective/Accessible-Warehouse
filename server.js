@@ -32,9 +32,8 @@ app.get('/api/getAreaList', getAreaList);
 app.get('/api/getStoreList', getStoreList);
 app.get('/api/getEarliestDate', getEarliestDate);
 app.get('/api/getLatestDate', getLatestDate);
-app.get('/api/getUpcomingDeliveries', getUpcomingDeliveries);
 app.get('/api/getStockTypes', getStockTypes);
-app.get('/api/getDeliveryReceipts', getDeliveryReceipts);
+app.get('/api/getOutgoingDeliveries', getOutgoingDeliveries);
 app.get('/api/getStockTotals', getStockTotals);
 app.get('/api/getMonthlyTotals', getMonthlyTotals);
 app.get('/api/getBreakdownByStock', getBreakdownByStock);
@@ -130,22 +129,11 @@ async function getLatestDate(req, res) {
     }
 }
 
-async function getUpcomingDeliveries(req, res) {
+async function getOutgoingDeliveries(req, res) {
   try {
-    const data = await db.getUpcomingDeliveries();
-    res.send(data);
-  }
-  catch (error) {
-    console.log("API Error: ",error);
-    res.send("Server Error");
-    }
-}
-
-async function getDeliveryReceipts(req, res) {
-  try {
-    const startIndex = parseInt(req.query.startIndex);
-    const numberOfRecords = parseInt(req.query.numberOfRecords);
-    const data = await db.getDeliveryReceipts(startIndex, numberOfRecords);
+    const isNull = req.query.isNull == 'true';
+    const today = req.query.today;
+    const data = await db.getOutgoingDeliveries(isNull, today);
     res.send(data);
   }
   catch (error) {
