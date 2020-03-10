@@ -131,7 +131,7 @@ async function getLatestDate(req, res) {
 
 async function getOutgoingDeliveries(req, res) {
   try {
-    const isNull = req.query.isNull == 'true';
+    const isNull = req.query.isNull;
     const today = req.query.today;
     const data = await db.getOutgoingDeliveries(isNull, today);
     res.send(data);
@@ -152,7 +152,7 @@ async function getStockTotals(req, res) {
   catch (error) {
     console.log("API Error: ",error);
     res.send("Server Error");
-    }
+  }
 }
 
 async function getMonthlyTotals(req, res) {
