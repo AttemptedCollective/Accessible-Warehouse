@@ -129,9 +129,21 @@ async function clientListOfOutgoingDeliveries(isNull) {
     let response = await fetch('/api/getOutgoingDeliveries?isNull='+isNull[0]+'&today='+today.slice(0,10), getFetchOptions);
     let data = await checkResponse(response);
 
-    console.log(data);
+    let tableColumns = [
+        {title:"Location", field:"locationName"},
+        {title:"Stock Type", field:"stockType"},
+        {title:"Quantity", field:"stockNum"},
+        {title:"Delivery Date", field:"dueDate"},
+        {title:"Delivery Driver", field:"userName"}
+    ];
+
+    let tableData = [];
+
+    data.forEach(row => {
+        tableData.push({locationName:row.locationName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryArrivedDate.slice(0,10), userName:row.userName})
+    });
     
-    return formattedData
+    return [tableColumns, tableData]
 }
 
 //Card Specific GET Queries

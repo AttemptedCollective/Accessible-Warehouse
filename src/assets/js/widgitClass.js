@@ -169,7 +169,9 @@ class Widgit {
             backgroundColor: [],
           }]
         };
-        let range = this.convertDate();;
+        let range = this.convertDate();
+        let tableColumns = [];
+        let tableData = [];
         switch(this.dataType){
             case 1:
                 [formattedData, this.options] = await clientGetStockTotals(formattedData, this.chosenStock, range);
@@ -257,6 +259,10 @@ class Widgit {
                     responsive: "true"
                 }}
                 return formattedData;
+            case 3:
+                return await clientListOfOutgoingDeliveries(false);
+            case 4:
+                return await clientListOfOutgoingDeliveries(true);
             default:
                 return templateData;
         }
@@ -275,10 +281,11 @@ class Widgit {
     }
 
     async createTable() {
-      this.tabulatorTable = new Tabulator(this.table, {
-          layout:"fitColumns",
-          columns:templateTableColumns,
-          data:templateTableData
+        let [tableColumns, tableData] = await this.getFormattedData();
+        this.tabulatorTable = new Tabulator(this.table, {
+            layout:"fitColumns",
+            columns:tableColumns,
+            data:tableData
       });
     }
 

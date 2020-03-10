@@ -5,7 +5,8 @@ const today = new Date().toISOString().slice(0, 19);
 let stockNames = [];
 
 const templates = [
-  {name: "Outgoing Deliveries - Waiting ", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:2, tableMode:true}
+  {name: "Outgoing Deliveries - Waiting ", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:3, tableMode:true},
+  {name: "Outgoing Deliveries - Testing Null ", chartType:"bar", options: ["date", "specificDate", "stock"], dataType:4, tableMode:true}
 ];
 
 const cardSettings = [
