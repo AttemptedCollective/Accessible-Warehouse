@@ -269,7 +269,7 @@ class Widgit {
             responsiveLayout:"hide",
             addRowPos:"bottom",
             pagination:"local",
-            paginationSize:7,
+            paginationSize:8,
             columns:tableColumns,
             data:tableData
       });
