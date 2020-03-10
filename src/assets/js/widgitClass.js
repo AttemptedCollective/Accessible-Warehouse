@@ -14,6 +14,7 @@ class Widgit {
         this.earliestDate = earliestDate;
         this.latestDate = latestDate;
         this.templates = templates;
+        this.tabulatorTable = null;
 
         this.chosenStock = listOfStockTypes;
         this.firstClick = true;
@@ -264,7 +265,10 @@ class Widgit {
     async createTable() {
         let [tableColumns, tableData] = await this.getFormattedData();
 
-        if (this.tabulatorTable == null) {
+        if (this.tabulatorTable != null) {
+            this.tabulatorTable.setColumns(tableColumns);
+            this.tabulatorTable.setData(tableData);
+        } else {
             this.tabulatorTable = new Tabulator(this.table, {
                 height:"100%",
                 layout:"fitColumns",
@@ -275,9 +279,6 @@ class Widgit {
                 columns:tableColumns,
                 data:tableData
           });
-        } else {
-            this.tabulatorTable.setColumns(tableColumns);
-            this.tabulatorTable.setData(tableData);
         }
     }
 
