@@ -31,6 +31,9 @@ let cardTemplateData = {
                     beginAtZero: true
                 }
             }]
+        },
+        legend: {
+          posistion: 'top'
         }
     }
 };
@@ -85,7 +88,7 @@ class Card {
     switch (this.dataType) {
       case 1:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
-        this.options[legend][position] = 'left'
+        this.options.legend.posistion = 'left'
         return formattedData;
 
       case 2:

@@ -119,7 +119,10 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
         }
     });
     let options = {
-        responsive: "true"
+        responsive: "true",
+        legend: {
+            posistion: 'top'
+        }
     }
     return [formattedData, options];
 }
