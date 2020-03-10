@@ -266,6 +266,7 @@ class Widgit {
         let [tableColumns, tableData] = await this.getFormattedData();
 
         if (this.tabulatorTable != null) {
+            console.log(tableColumns, tableData);
             this.tabulatorTable.setColumns(tableColumns);
             this.tabulatorTable.setData(tableData);
         } else {
