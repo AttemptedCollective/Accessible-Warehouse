@@ -252,11 +252,11 @@ displayArea > div {
 }
 
 .canvasContainer, .tableContainer {
-  width: 100%;
+  width: 95%;
   height: 95%;
 }
 
-canvas, .tableContainer {
+canvas {
   margin: auto;
 }
 
@@ -296,9 +296,9 @@ canvas, .tableContainer {
     Table Area Design
 \*------------------------------------------------*/
 
-.tableArea {
+/* .tableArea {
     margin: auto 1vw;
-}
+} */
 
 /*------------------------------------------------*\
     Card Area
