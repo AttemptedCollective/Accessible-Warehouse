@@ -284,6 +284,10 @@ class Widgit {
         let [tableColumns, tableData] = await this.getFormattedData();
         this.tabulatorTable = new Tabulator(this.table, {
             layout:"fitColumns",
+            responsiveLayout:"hide",
+            addRowPos:"bottom",
+            pagination:"local",
+            paginationSize:8,
             columns:tableColumns,
             data:tableData
       });
