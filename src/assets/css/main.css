@@ -296,9 +296,9 @@ canvas {
     Table Area Design
 \*------------------------------------------------*/
 
-/* .tableArea {
-    margin: auto 1vw;
-} */
+.tableArea {
+    margin: auto;
+}
 
 /*------------------------------------------------*\
     Card Area
