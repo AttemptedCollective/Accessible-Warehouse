@@ -85,18 +85,18 @@ class Card {
     switch (this.dataType) {
       case 1:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
-        this.options.legend.position = 'right';
+        this.options[legend][position] = 'left'
         return formattedData;
 
       case 2:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
         formattedData.datasets[0].label = '# of Stock';
-        this.options.legend.position = 'top'
+        this.options[legend][position] = 'top'
         return formattedData;
 
       case 3:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today.slice(0, -2)+'01', this.today.slice(0, -2)+'31']);
-        this.options.legend.position = 'left'
+        this.options[legend][position] = 'left'
         return formattedData;
       default:
         return cardTemplateData;
