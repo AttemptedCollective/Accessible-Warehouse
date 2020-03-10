@@ -11,15 +11,6 @@ const server = http.createServer(app);
 // Use express to serve files (webserver)
 app.use('/', express.static('src'));
 
-const io = require('socket.io').listen(server);
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
   console.log(`Server started, Listening on port ${PORT}`);
