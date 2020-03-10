@@ -94,8 +94,8 @@ async function addNewDelivery(fromLocation, toLocation, stockType, numOfBags, dr
 \*------------------------------------------------*/
 
 async function getOutgoingDeliveries(isNull, today){
-  if (isNull) return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NULL AND Deliveries.deliveryDueDate > ? ORDER BY deliveryDueDate ASC LIMIT 30',[today]);
-  else return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NOT NULL AND Deliveries.deliveryDueDate > ? ORDER BY deliveryDueDate ASC LIMIT 30',[today]);
+  if (isNull) { return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NULL AND Deliveries.deliveryDueDate > ? ORDER BY deliveryDueDate ASC LIMIT 30',[today]);
+  }else return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NOT NULL AND Deliveries.deliveryDueDate > ? ORDER BY deliveryDueDate ASC LIMIT 30',[today]);
 }
 
 async function getStockTypes(){
