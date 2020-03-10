@@ -254,6 +254,7 @@ displayArea > div {
 .canvasContainer, .tableContainer {
   width: 95%;
   height: 95%;
+  margin: auto;
 }
 
 canvas {
@@ -290,14 +291,6 @@ canvas {
 
 .hidden {
     display: none;
-}
-
-/*------------------------------------------------*\
-    Table Area Design
-\*------------------------------------------------*/
-
-.tablecontainer {
-    margin: auto;
 }
 
 /*------------------------------------------------*\
