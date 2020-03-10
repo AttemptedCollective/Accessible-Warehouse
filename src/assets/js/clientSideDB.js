@@ -142,7 +142,7 @@ async function clientListOfOutgoingDeliveries(isNull) {
 
     let tableData = [];
 
-    if (data.length != 0) {
+    if (data != undefined) {
         data.forEach(row => {
             tableData.push({locationName:row.locationName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryArrivedDate.slice(0,10), userName:row.userName})
         });
