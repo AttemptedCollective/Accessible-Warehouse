@@ -131,6 +131,8 @@ async function getLatestDate(req, res) {
 
 async function getOutgoingDeliveries(req, res) {
   try {
+    console.log("server: "+typeOf(isNull));
+    
     const isNull = req.query.isNull;
     const today = req.query.today;
     const data = await db.getOutgoingDeliveries(isNull, today);
