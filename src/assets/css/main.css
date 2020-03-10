@@ -248,7 +248,7 @@ displayArea > div {
 }
 
 .topOptionsContainer > .reportSelect.ui.dropdown.selection {
-    width: 65%;
+    width: 45%;
     margin: auto;
 }
 
@@ -316,7 +316,6 @@ cardArea > div {
 .cardTitle {
   text-align: center;
   justify-content: center;
-  
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
