@@ -121,8 +121,8 @@ class Widgit {
         this.options = {
             responsive: "true"
         }
-        if (!this.tableMode) this.createGraph(this.chartData);
-        else this.createTable();
+        if (!this.tableMode) {this.createGraph(this.chartData);
+        }else this.createTable();
         $('.ui.selection').dropdown();
     }
 
@@ -286,8 +286,12 @@ class Widgit {
                 this.chosenOptions = this.updateChosenOptions();
             }
         });
-        if (!this.tableMode) this.createGraph();
-        else this.createTable();
+        if (!this.tableMode) {this.createGraph();
+        }else {
+            console.log('Creating Table');
+            
+            this.createTable()
+        };
     }
 
     async updateChart() {
