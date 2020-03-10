@@ -277,7 +277,7 @@ class Widgit {
           });
         } else {
             this.tabulatorTable.setColumns(tableColumns);
-            this.tabulatorTable.setColumns(tableData);
+            this.tabulatorTable.setData(tableData);
         }
     }
 
