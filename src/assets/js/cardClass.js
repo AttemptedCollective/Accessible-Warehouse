@@ -94,6 +94,7 @@ class Card {
       case 2:
         [formattedData, this.options] = await clientGetStockTotals(formattedData, [], [this.today, this.today]);
         formattedData.datasets[0].label = '# of Stock';
+        this.options = cardTemplateData.options;
         this.options.legend.position = 'top'
         return formattedData;
 
