@@ -11,7 +11,7 @@ const server = http.createServer(app);
 // Use express to serve files (webserver)
 app.use('/', express.static('src'));
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 server.listen(PORT, () => {
   console.log(`Server started, Listening on port ${PORT}`);
 });
