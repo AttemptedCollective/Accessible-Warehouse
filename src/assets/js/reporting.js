@@ -26,14 +26,14 @@ function monthNumToName(monthnum) {
 // These functions will be use to populate and create widgits
 async function createWidgitsForDashboard(numOfWidgits) {
   let listOfStockTypes = await clientGetListOfStockTypes();
-  let listOfAreas = await clientGetAreaList();
+  let listOfRegions = await clientGetRegionList();
   let listOfStores = await clientGetStoreList();
   let earliestDate = await clientGetEarliestDate();
   let latestDate = await clientGetLatestDate();
 
   for (var i = 0; i < numOfWidgits; i++) {
     console.log("Creating Widgit: ", i);
-    listOfWidgits[i] = new Widgit(displayArea, templates, listOfStockTypes, listOfAreas, listOfStores, earliestDate, latestDate);
+    listOfWidgits[i] = new Widgit(displayArea, templates, listOfStockTypes, listOfRegions, listOfStores, earliestDate, latestDate);
   }
 }
 
