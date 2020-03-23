@@ -36,8 +36,8 @@ async function clientGetListOfStockTypes() {
     return formattedData;
 }
 
-async function clientGetAreaList() {
-    response = await fetch('/api/getAreaList', getFetchOptions);
+async function clientGetRegionList() {
+    response = await fetch('/api/getRegionList', getFetchOptions);
     if (!response.ok) {
       console.log(response.status);
       return;
@@ -47,8 +47,8 @@ async function clientGetAreaList() {
       return;
     }
     let formattedData = [];
-    data.forEach(area => {
-      formattedData.push(area.areaName);
+    data.forEach(region => {
+      formattedData.push(region.regionName);
     })
     return formattedData;
   }
@@ -64,8 +64,8 @@ async function clientGetStoreList() {
         return;
     }
     let formattedData = [];
-    data.forEach(location => {
-        formattedData.push(location.locationName);
+    data.forEach(store => {
+        formattedData.push(store.storeName);
     })
     return formattedData;
 }

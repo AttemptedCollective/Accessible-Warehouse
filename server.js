@@ -17,9 +17,12 @@ server.listen(PORT, () => {
 });
 
 // API functions
+// post functions
 app.post('/api/addStockType', addStockType);
 app.post('/api/addNewDelivery', addNewDelivery);
-app.get('/api/getAreaList', getAreaList);
+// get functions
+app.get('/api/getRegionList', getRegionList);
+app.get('/api/getClusterList', getClusterList);
 app.get('/api/getStoreList', getStoreList);
 app.get('/api/getEarliestDate', getEarliestDate);
 app.get('/api/getLatestDate', getLatestDate);
@@ -76,9 +79,20 @@ async function getStockTypes(req, res) {
     }
 }
 
-async function getAreaList(req, res) {
+async function getClusterList(req, res) {
   try {
-    const data = await db.getAreaList();
+    const data = await db.getClusterList();
+    res.send(data);
+  }
+  catch (error) {
+    console.log("API Error: ",error);
+    res.send("Server Error");
+    }
+}
+
+async function getRegionList(req, res) {
+  try {
+    const data = await db.getRegionList();
     res.send(data);
   }
   catch (error) {

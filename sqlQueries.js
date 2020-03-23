@@ -94,20 +94,36 @@ async function addNewDelivery(fromLocation, toLocation, stockType, numOfBags, dr
 \*------------------------------------------------*/
 
 async function getOutgoingDeliveries(isNull, today){
-  if (isNull == 'true') { return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NULL AND Deliveries.deliveryDueDate >= ? ORDER BY deliveryDueDate ASC',[today]);
-  }else return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries LEFT JOIN Locations ON toLocation = locationID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE Deliveries.deliveryArrivedDate IS NOT NULL AND Deliveries.deliveryDueDate >= ? ORDER BY deliveryDueDate ASC',[today]);
+  if (isNull == 'true') { return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries d LEFT JOIN Stores s ON d.sendingToStoreID = s.storeID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE d.deliveryArrivedDate IS NULL AND d.deliveryDueDate >= ? ORDER BY deliveryDueDate ASC',[today]);
+  }else return await mysqlSelect('SELECT deliveryArrivedDate,locationName,stockName,numOfBags,userName FROM Deliveries d LEFT JOIN Stores s ON d.sendingToStoreID = s.storeID LEFT JOIN Users ON driverID = userID LEFT JOIN StockTypes ON stockType = stockID WHERE d.deliveryArrivedDate IS NOT NULL AND d.deliveryDueDate >= ? ORDER BY deliveryDueDate ASC',[today]);
 }
 
 async function getStockTypes(){
   return await mysqlSelect('SELECT stockName FROM StockTypes');
 }
 
-async function getAreaList(){
-  return await mysqlSelect('SELECT areaName FROM Areas');
+async function getRegionList(){
+  return await mysqlSelect('SELECT * FROM Regions');
+}
+
+async function getClusterList(){
+  return await mysqlSelect('SELECT * FROM Clusters');
+}
+
+async function getClusterListByRegion(regionID){
+  return await mysqlSelect('SELECT clusterName FROM Clusters');
 }
 
 async function getStoreList(){
-  return await mysqlSelect('SELECT locationName FROM Locations');
+  return await mysqlSelect('SELECT storeName FROM Stores');
+}
+
+async function getStoreListByCluster(clusterID){
+  return await mysqlSelect('SELECT * FROM Stores WHERE clusterID = ?',[clusterID]);
+}
+
+async function getStoreListByRegion(regionID)){
+  return await mysqlSelect('SELECT * FROM Stores s LEFT JOIN Clusters c ON c.clusterID = s.clusterID WHERE regionID = ?',[regionID]);
 }
 
 async function getEarliestDate(){
@@ -138,8 +154,12 @@ module.exports = {
 
   //Get
   getStockTypes: getStockTypes,
-  getAreaList: getAreaList,
+  getRegionList: getRegionList,
+  getClusterList: getClusterList,
+  getClusterListByRegion: getClusterListByRegion,
   getStoreList: getStoreList,
+  getStoreListByCluster: getStoreListByCluster,
+  getStoreListByRegion: getStoreListByRegion,
   getEarliestDate: getEarliestDate,
   getLatestDate: getLatestDate,
   getOutgoingDeliveries: getOutgoingDeliveries,

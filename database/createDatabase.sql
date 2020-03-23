@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS warehouse;
 CREATE DATABASE warehouse;
 USE warehouse;
 
@@ -27,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Stores (
 CREATE TABLE IF NOT EXISTS Users (
      userID INT NOT NULL AUTO_INCREMENT,
      userName varchar(60) NOT NULL,
-     PRIMARY KEY (userID),
+     PRIMARY KEY (userID)
 );
 
 -- Shows which users have access to which Regions
@@ -79,10 +78,26 @@ CREATE TABLE IF NOT EXISTS Deliveries (
      deliveryDueDate date NOT NULL,
      deliveryArrivedDate DATETIME,
      PRIMARY KEY (deliveryID),
-     FOREIGN KEY (sendingFromStore) REFERENCES Stores(storeID) ON DELETE CASCADE,
-     FOREIGN KEY (sendingToStore) REFERENCES Stores(storeID) ON DELETE CASCADE,
+     FOREIGN KEY (sendingFromStoreID) REFERENCES Stores(storeID) ON DELETE CASCADE,
+     FOREIGN KEY (sendingToStoreID) REFERENCES Stores(storeID) ON DELETE CASCADE,
      FOREIGN KEY (stockType) REFERENCES StockTypes(stockID) ON DELETE CASCADE,
      FOREIGN KEY (driverID) REFERENCES Users(userID) ON DELETE CASCADE
+);
+
+-- Area for Template and Card Data
+CREATE TABLE IF NOT EXISTS Templates (
+     templateID INT NOT NULL AUTO_INCREMENT,
+     templateName varchar(60) NOT NULL,
+     chartType varchar(60) NOT NULL,
+     dataType INT NOT NULL,
+     tableMode boolean NOT NULL 
+);
+
+CREATE TABLE IF NOT EXISTS Cards (
+     templateID INT NOT NULL AUTO_INCREMENT,
+     title varchar(60) NOT NULL,
+     chartType varchar(60) NOT NULL,
+     cardType INT NOT NULL,
 );
 
 
