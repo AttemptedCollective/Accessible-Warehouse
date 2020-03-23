@@ -8,7 +8,20 @@
     --main-nav-color: #393E41;
     --title-background-colour: #f5f5f5;
     --wc-border-colour: #ededed;
-  }
+
+    /* Requested Colours */
+    --earth-red: rgb(157, 31, 33);
+    --deep-red: rgb(94, 18, 18);
+    --durant-red: rgb(238, 42, 36);
+    --light-red: rgb(233, 81, 83);
+    --mercer-red: rgb(208, 1, 27);
+
+    --clarity-white: rgb(255, 255, 255);
+    --flag-white: rgb(247, 247, 247);
+    --fog-grey: rgb(215, 216, 215);
+    --slate-grey: rgb(98, 123, 128);
+    --shadow-black: rgb(37, 31, 33);
+}
 
 * {
     padding: 0;
@@ -17,7 +30,7 @@
 }
 
 /*------------------------------------------------*\
-    Globa;
+    Global
 \*------------------------------------------------*/
 
 .hidden {
