@@ -122,7 +122,7 @@ async function getStoreListByCluster(clusterID){
   return await mysqlSelect('SELECT * FROM Stores WHERE clusterID = ?',[clusterID]);
 }
 
-async function getStoreListByRegion(regionID)){
+async function getStoreListByRegion(regionID){
   return await mysqlSelect('SELECT * FROM Stores s LEFT JOIN Clusters c ON c.clusterID = s.clusterID WHERE regionID = ?',[regionID]);
 }
 
