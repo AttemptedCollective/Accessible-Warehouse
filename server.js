@@ -2,11 +2,9 @@
 
 const express = require('express');
 const app = express();
-const mysql = require('mysql2/promise');
 const http = require('http');
 const db = require('./sqlQueries.js');
 const server = http.createServer(app);
-// const io = require('socket.io')(http);
 
 // Use express to serve files (webserver)
 app.use('/', express.static('src'));

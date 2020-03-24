@@ -131,22 +131,28 @@ async function clientGetStockTotals(formattedData, chosenStock, range) {
 async function clientListOfOutgoingDeliveries(isNull) {
     let response = await fetch('/api/getOutgoingDeliveries?isNull='+isNull+'&today='+today.slice(0,10), getFetchOptions);
     let data = await checkResponse(response);
-
+   
     let tableColumns = [
-        {title:"Location", field:"locationName"},
+        {title:"Location", field:"storeName"},
         {title:"Stock Type", field:"stockType"},
         {title:"Quantity", field:"stockNum"},
         {title:"Delivery Date", field:"dueDate"},
+        {title:"Delivery Arrived Date", field:"arrivedDate"},
         {title:"Delivery Driver", field:"userName"}
     ];
 
     let tableData = [];
 
-    if (data != undefined) {
-        data.forEach(row => {
-            tableData.push({locationName:row.locationName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryArrivedDate.slice(0,10), userName:row.userName})
+    
+    if (data != undefined || data != null) {
+        data.forEach(row => {               
+            let dataRow = {storeName:row.storeName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryDueDate, userName:row.userName}
+            if (row.deliveryArrivedDate == null) {
+                dataRow.arrivedDate = "N/A"
+            } else dataRow.arrivedDate = row.deliveryArrivedDate
+            tableData.push(dataRow)
         });
-    } else tableData = [{locationName:"N/A", stockType:"N/A", stockNum:"N/A", dueDate:"N/A", userName:"N/A"}]
+    } else tableData = [{storeName:"N/A", stockType:"N/A", stockNum:"N/A", dueDate:"N/A", arrivedDate:"N/A", userName:"N/A"}]
     
     return [tableColumns, tableData]
 }
