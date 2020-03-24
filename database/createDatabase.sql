@@ -90,14 +90,16 @@ CREATE TABLE IF NOT EXISTS Templates (
      templateName varchar(60) NOT NULL,
      chartType varchar(60) NOT NULL,
      dataType INT NOT NULL,
-     tableMode boolean NOT NULL 
+     tableMode boolean NOT NULL,
+     PRIMARY KEY (templateID)
 );
 
 CREATE TABLE IF NOT EXISTS Cards (
-     templateID INT NOT NULL AUTO_INCREMENT,
+     cardID INT NOT NULL AUTO_INCREMENT,
      title varchar(60) NOT NULL,
      chartType varchar(60) NOT NULL,
      cardType INT NOT NULL,
+     PRIMARY KEY (cardID)
 );
 
 
@@ -172,12 +174,12 @@ VALUES
     (7, 1);
 
 INSERT INTO Deliveries (sendingFromStoreID, sendingToStoreID, stockType, numOfBags, driverID, deliveryDueDate, deliveryArrivedDate) values 
-(1, 2, 1, 10, 6, '2020-03-22 10:00:00', '2020-09-22 12:00:00'),
-(1, 2, 1, 10, 7, '2020-03-22 11:00:00', '2020-09-22 13:00:00'),
+(1, 2, 1, 10, 6, '2020-03-22 10:00:00', '2020-03-22 12:00:00'),
+(1, 2, 1, 10, 7, '2020-03-22 11:00:00', '2020-03-22 13:00:00'),
 (1, 3, 1, 10, 6, '2020-03-22 12:00:00', null),
-(1, 3, 1, 10, 7, '2020-03-23 10:00:00', '2020-09-22 11:00:00'),
+(1, 3, 1, 10, 7, '2020-03-23 10:00:00', '2020-03-22 11:00:00'),
 (1, 2, 1, 10, 6, '2020-03-23 11:00:00', null),
-(1, 2, 1, 10, 7, '2020-03-23 12:00:00', '2020-09-22 14:00:00'),
+(1, 2, 1, 10, 7, '2020-03-23 12:00:00', '2020-03-22 14:00:00'),
 (1, 3, 1, 10, 6, '2020-03-24 10:00:00', null),
 (1, 3, 1, 10, 7, '2020-03-24 11:00:00', null),
 (1, 2, 1, 10, 6, '2020-03-24 12:00:00', null);
