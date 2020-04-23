@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
-    <title>Warehouse Dashboard</title>
+    <title>Create New Delivery</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.4.3/js/tabulator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 
 <body>
@@ -26,16 +27,20 @@
     <sidebar>
         <nav>
             <a id='reporting' href="reporting.html">Reporting Dashboard</a>
-            <a class='currentPage' id='warehouse' href="warehouse.html">Warehouse Dashboard</a>
+            <a id='warehouse' href="warehouse.html">Warehouse Dashboard</a>
             <a id='newOutboundDelivery' href="delivery.html">New Outbound Deliveries</a>
             <a id='createNewStockIn' href="#">Report Incoming Stock</a>
             <a id='configuration' href="configuration.html">Configuration</a>
         </nav>
     </sidebar>
     <copyright><p>&copy; Copyright 2019, Tyler Davis</p></copyright>
-    <holder><displayArea></displayArea><cardArea></cardArea></holder>
+    <holder class="formArea"><displayArea><div class="widgitArea">
+        <div class="titleArea"><div class="title">New Outbound Deliveries</div><select class="ui dropdown" name="regionSelect" id="regionSelect"></select></div>
+        <div id="new-delivery-table"></div>
+        <div class="submitButtonArea"><button class="ui basic button" id="newRow">New Row</button><button class="ui button green" id="submitButton">Submit</button></div>
+    </div></displayArea></holder>
 </body>
 
 <script src="assets/js/clientSideDB.js"></script>
 <script src="assets/js/classes.js"></script>
-<script src="assets/js/warehouse.js"></script>
+<script src="assets/js/delivery.js"></script>
