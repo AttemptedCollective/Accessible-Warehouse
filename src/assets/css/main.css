@@ -195,6 +195,10 @@ holder {
     grid-column-gap: 2.5%
 }
 
+.formArea {
+    grid-template-columns: 100%;
+}
+
 displayArea, cardArea {
     height: 100%;
     width: 100%;
@@ -305,6 +309,38 @@ canvas {
 .hidden {
     display: none;
 }
+
+.titleArea {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--wc-border-colour);
+    display: flex;
+    justify-content: center;
+}
+
+.titleArea > .title {
+    font-size: 2em;
+    margin: auto auto auto 0.5em;
+}
+
+.titleArea > .ui.dropdown.selection {
+    width: 35%;
+    margin: auto 0.5em auto auto;
+}
+
+.submitButtonArea {
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submitButtonArea > * {
+    width: 15%;
+}
+
 
 /*------------------------------------------------*\
     Card Area
