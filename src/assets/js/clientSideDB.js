@@ -4,6 +4,11 @@ const getFetchOptions = {
     method: 'GET',
 };
 
+const getPostOptions = {
+    credentials: 'same-origin',
+    method: 'POST',
+};
+
 async function checkResponse(response) {
     if (!response.ok) {
         console.log(response.status);
@@ -34,6 +39,19 @@ async function clientGetListOfStockTypes() {
       formattedData.push(stock.stockName);
     })
     return formattedData;
+}
+
+async function clientGetListOfStockTypesWithIDs() {
+    response = await fetch('/api/getStockTypesWithIDs', getFetchOptions);
+    if (!response.ok) {
+      console.log(response.status);
+      return;
+    }
+    data = await response.json();
+    if (data.length == 0) {
+      return;
+    }
+    return data;
 }
 
 async function clientGetRegionList() {
@@ -68,6 +86,23 @@ async function clientGetStoreList() {
         formattedData.push(store.storeName);
     })
     return formattedData;
+}
+
+async function clientGetStoreListWithIDs() {
+    response = await fetch('/api/getStoreListWithIDs', getFetchOptions);
+    if (!response.ok) {
+        console.log(response.status);
+        return;
+    }
+    data = await response.json();
+    if (data.length == 0) {
+        return;
+    }
+    let formattedData = [];
+    data.forEach(store => {
+        formattedData.push(store.storeName);
+    })
+    return data;
 }
 
 async function clientGetEarliestDate() {
@@ -146,15 +181,21 @@ async function clientListOfOutgoingDeliveries(isNull) {
     
     if (data != undefined || data != null) {
         data.forEach(row => {               
-            let dataRow = {storeName:row.storeName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryDueDate, userName:row.userName}
+            let dataRow = {storeName:row.storeName, stockType:row.stockName, stockNum:row.numOfBags, dueDate:row.deliveryDueDate.slice(0,10), userName:row.userName}
             if (row.deliveryArrivedDate == null) {
                 dataRow.arrivedDate = "N/A"
-            } else dataRow.arrivedDate = row.deliveryArrivedDate
+            } else dataRow.arrivedDate = row.deliveryArrivedDate.replace('T', ' ').slice(0,19);
             tableData.push(dataRow)
         });
     } else tableData = [{storeName:"N/A", stockType:"N/A", stockNum:"N/A", dueDate:"N/A", arrivedDate:"N/A", userName:"N/A"}]
     
     return [tableColumns, tableData]
+}
+
+async function clientAddNewDeliveries(data) {
+    let stringData = JSON.stringify(data);
+    let response = await fetch('/api/addNewDeliveries?stringData='+stringData, getPostOptions);
+    return response;
 }
 
 //Card Specific GET Queries
