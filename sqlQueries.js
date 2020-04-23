@@ -30,7 +30,7 @@ async function mysqlSelect(queryStr,queryVars){ //Runs MySQL Select Queries and 
   return results; //return results
   }
   catch (error){
-    console.log("\x1b[31mSQL Failure:\n\x1b[37m%s\x1b[0m",error);//catch SQL errors and print to console in colour
+    console.log("SQL Failure: ",error);//catch SQL errors and print to console in colour
     return null; //return null as an SQL error was encountered trying to select
   }
 }
@@ -43,7 +43,7 @@ async function mysqlInsert(queryStr,queryVars){ //Runs MySQL Insert Queries and 
   return true; //return true as any errors would drop to the catch statement below
   }
   catch (error){
-    console.log("\x1b[31mSQL Failure:\n\x1b[37m%s\x1b[0m",error); //catch SQL errors and print to console in colour
+    console.log("SQL Failure: ",error); //catch SQL errors and print to console in colour
     return false; //return false as there was an SQL error
   }
 }
@@ -59,7 +59,7 @@ async function addUser(name, accessLevel, driverType){
     [name, accessLevel, driverType]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mAAdded a New User (%s)\x1b[0m', name);
+    console.log('Added a New User: ', name);
     return true; //return true so that client can know User was added successfully
   }
   else {return false;} //return false so client can know User wasn't added
@@ -71,22 +71,31 @@ async function addStockType(name, averageWeight){
     [name, averageWeight]
   );
   if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mAdded a New Stock Type (%s)\x1b[0m', name);
+    console.log('Added a New Stock Type: ', name);
     return true; //return true so that client can know Stock Type was added successfully
   }
   else {return false;} //return false so client can know Stock Type wasn't added
 }
 
-async function addNewDelivery(fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate){
-  const Query = await mysqlInsert(
-    'INSERT INTO Deliveries (fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate) VALUES (?,?,?,?,?,?)',
-    [fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate]
-  );
-  if (Query){ //If Query was successfull (if not then error has already been printed to console)
-    console.log('\x1b[33mAdded a new Delivery');
-    return true; //return true so that client can know Stock Type was added successfully
-  }
-  else {return false;} //return false so client can know Stock Type wasn't added
+async function addNewDeliveries(data){
+  let successful = true
+  let Query;
+  data.forEach(async(row) =>{
+    let arrived = row.outDate+' 10:10:10'
+    let driverID = 7;
+    Query = await mysqlInsert(
+      'INSERT INTO Deliveries (sendingFromStoreID, sendingToStoreID, stockType, numOfBags, driverID, deliveryDueDate, deliveryArrivedDate) VALUES (?,?,?,?,?,?,?)',
+      [1, row.location, row.stock, row.quantity, driverID, row.outDate, arrived]
+    );
+    if (Query){ //If Query was successfull (if not then error has already been printed to console)
+      console.log('Added a new Delivery: ', row.location, row.stock);
+    }
+    else {
+      successful = false;
+      console.log('Error with Delivery: ', row.location, row.stock);
+    }
+  });
+  return successful; //return false so client can know Stock Type wasn't added
 }
 
 /*------------------------------------------------*\
@@ -100,6 +109,10 @@ async function getOutgoingDeliveries(isNull, today){
 
 async function getStockTypes(){
   return await mysqlSelect('SELECT stockName FROM StockTypes');
+}
+
+async function getStockTypesWithIDs(){
+  return await mysqlSelect('SELECT stockID, stockName FROM StockTypes');
 }
 
 async function getRegionList(){
@@ -116,6 +129,10 @@ async function getClusterListByRegion(regionID){
 
 async function getStoreList(){
   return await mysqlSelect('SELECT storeName FROM Stores');
+}
+
+async function getStoreListWithIDs(){
+  return await mysqlSelect('SELECT storeID, storeName FROM Stores');
 }
 
 async function getStoreListByCluster(clusterID){
@@ -150,14 +167,16 @@ async function getBreakdownByStock(dateFrom, dateTo){
 module.exports = {
   //Add
   addStockType: addStockType,
-  addNewDelivery: addNewDelivery,
+  addNewDeliveries: addNewDeliveries,
 
   //Get
   getStockTypes: getStockTypes,
+  getStockTypesWithIDs: getStockTypesWithIDs,
   getRegionList: getRegionList,
   getClusterList: getClusterList,
   getClusterListByRegion: getClusterListByRegion,
   getStoreList: getStoreList,
+  getStoreListWithIDs: getStoreListWithIDs,
   getStoreListByCluster: getStoreListByCluster,
   getStoreListByRegion: getStoreListByRegion,
   getEarliestDate: getEarliestDate,

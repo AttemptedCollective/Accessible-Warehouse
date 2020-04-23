@@ -17,14 +17,16 @@ server.listen(PORT, () => {
 // API functions
 // post functions
 app.post('/api/addStockType', addStockType);
-app.post('/api/addNewDelivery', addNewDelivery);
+app.post('/api/addNewDeliveries', addNewDeliveries);
 // get functions
 app.get('/api/getRegionList', getRegionList);
 app.get('/api/getClusterList', getClusterList);
 app.get('/api/getStoreList', getStoreList);
+app.get('/api/getStoreListWithIDs', getStoreListWithIDs);
 app.get('/api/getEarliestDate', getEarliestDate);
 app.get('/api/getLatestDate', getLatestDate);
 app.get('/api/getStockTypes', getStockTypes);
+app.get('/api/getStockTypesWithIDs', getStockTypesWithIDs);
 app.get('/api/getOutgoingDeliveries', getOutgoingDeliveries);
 app.get('/api/getStockTotals', getStockTotals);
 app.get('/api/getMonthlyTotals', getMonthlyTotals);
@@ -47,16 +49,11 @@ async function addStockType(req, res) {
   }
 }
 
-async function addNewDelivery(req, res) {
+async function addNewDeliveries(req, res) {
   try {
-    const fromLocation = req.query.fromLocation;
-    const toLocation = req.query.toLocation;
-    const stockType = req.query.stockType;
-    const numOfBags = req.query.numOfBags;
-    const driverID = req.query.driverID;
-    const deliveryDueDate = req.query.deliveryDueDate;
-    const addStatus = await db.addNewDelivery(fromLocation, toLocation, stockType, numOfBags, driverID, deliveryDueDate); //Add the Delivery to the database
-    io.sockets.emit('broadcast', "Database Updated");
+    const data = JSON.parse(req.query.stringData);
+    console.log(data);
+        const addStatus = await db.addNewDeliveries(data); //Add the Delivery to the database
     res.send(addStatus); //return to the client whether the Delivery was added or not
   }
   catch (error) {
@@ -69,6 +66,17 @@ async function addNewDelivery(req, res) {
 async function getStockTypes(req, res) {
   try {
     const data = await db.getStockTypes();
+    res.send(data);
+  }
+  catch (error) {
+    console.log("API Error: ",error);
+    res.send("Server Error");
+    }
+}
+
+async function getStockTypesWithIDs(req, res) {
+  try {
+    const data = await db.getStockTypesWithIDs();
     res.send(data);
   }
   catch (error) {
@@ -109,6 +117,18 @@ async function getStoreList(req, res) {
     res.send("Server Error");
     }
 }
+
+async function getStoreListWithIDs(req, res) {
+  try {
+    const data = await db.getStoreListWithIDs();
+    res.send(data);
+  }
+  catch (error) {
+    console.log("API Error: ",error);
+    res.send("Server Error");
+    }
+}
+
 
 async function getEarliestDate(req, res) {
   try {
